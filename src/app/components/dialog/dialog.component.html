@@ -1,0 +1,10 @@
+<div class="card flex justify-content-center">
+    <p-button (onClick)="showDialog()" label="Show" />
+    <p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+        <span class="p-text-secondary block mb-5">Update your information.</span>
+        <form-creator
+        [fields]="formFeilds"
+        (submitForm)="submitform($event)"
+        />
+    </p-dialog>
+</div>

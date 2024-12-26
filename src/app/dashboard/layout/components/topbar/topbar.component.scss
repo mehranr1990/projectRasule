@@ -1,0 +1,27 @@
+:host {
+
+  .p-menu {
+    background-image: linear-gradient(to bottom, transparent, transparent);
+  }
+
+  .user-menu-dropdown {
+    ::ng-deep .p-splitbutton-defaultbutton {
+      padding: .25rem .75rem !important;
+      border-left: 1px solid var(--surface-300);
+      ;
+    }
+
+    ::ng-deep .p-chip {
+      padding: 0 !important;
+      color: var(--surface-50) !important;
+      font-weight: 500;
+      background-color: transparent;
+
+      img {
+        margin: 0 0 0 .5rem !important;
+      }
+    }
+  }
+
+}
+

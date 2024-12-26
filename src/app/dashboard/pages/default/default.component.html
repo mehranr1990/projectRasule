@@ -1,0 +1,72 @@
+<p-table [value]="getAllDefault$ | async" [tableStyle]="{'min-width': '10rem'}" styleClass="tb-style" [scrollable]="true" responsiveLayout="stack" [breakpoint]="'600px'">
+  <ng-template pTemplate="caption">
+    <div class="flex items-center justify-between flex-col md:flex-row">
+      <search-box (onSearch)="onSearch($event)" class="w-full" />
+      <div class="flex items-center justify-between mt-3 md:justify-end md:m-0 w-full">
+        <p-button label="ایجاد مشتری" icon="fa-solid fa-plus" styleClass="btn-style btn-theme ml-3.5"
+          (onClick)="startCreateCustomer()" />
+
+        <p-button icon="pi pi-refresh" styleClass="bg-themeLightColor1 text-themeColor1 rounded-full w-9 h-9" />
+
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>#</th>
+      <th>نام و نام خانوادگی</th>
+      <th>موبایل</th>
+      <th>توضیحات</th>
+      <th>عملیات</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-default let-rowIndex="rowIndex">
+    <tr>
+      <td>
+        <span class="p-column-title">#</span>
+        {{ rowIndex+1 }}
+      </td>
+      <td>
+        <span class="p-column-title">نام و نام خانوادگی</span>
+        {{ default.fullname }}
+      </td>
+      <td>
+        <span class="p-column-title">موبایل</span>
+        {{ default.tradeId }}
+      </td>
+      <td>
+        <span class="p-column-title">توضیحات</span>
+        {{ default.description }}
+      </td>
+      <td>
+        
+        <app-operation typeOpe="dropdown">
+          <ng-container class="op-dropdown">
+            <button class="group hover:bg-amber-500/5" (click)="startEditingCustomer(default)" pTooltip="" tooltipPosition="top" placeholder="Top">
+              <i class="fa-duotone fa-solid fa-pen-clip group-hover:text-amber-500"></i>
+              <span>ویرایش</span>
+            </button>
+            <button class="group hover:bg-rose-600/5" (click)="deleteCustomer($event,default)" pTooltip="" tooltipPosition="top" placeholder="Top">
+              <i class="fa-duotone fa-solid fa-trash-xmark group-hover:text-rose-600"></i>
+              <span>حذف</span>
+            </button>
+          </ng-container>
+        </app-operation>
+
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <td colspan="99" class="app-empty-message" [loading]="defaultLoading"></td>
+  </ng-template>
+</p-table>
+<app-paginator *ngIf="meta && meta.totalItems>10" [meta]="meta" (pageChange)="onPageChange($event)" />
+
+<p-dialog header="{{headerDialog}}" [modal]="true" [(visible)]="visible" [style]="{ width: '30rem' }"
+  styleClass="dialog-style rounded-xl">
+  <form-creator *ngIf="visible" [fields]="formFields" [values]="formValues" [options]="formOptions"
+    (submitForm)="submitCustomers($event)" (submitEditForm)="submitEditCustomers($event)" />
+</p-dialog>
+
+<p-toast />
+<p-confirmDialog class="style-confirm" />

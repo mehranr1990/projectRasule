@@ -1,0 +1,15 @@
+::ng-deep p-button[type="submit"]{
+
+    .p-icon-wrapper{
+        transform: scale(1.1);
+        position: relative;
+        top: 0.3rem;
+        left: 0.6rem;
+    }
+}
+
+::ng-deep #form-item{
+    &:last-child{
+        margin-bottom: 0 !important;
+    }
+}

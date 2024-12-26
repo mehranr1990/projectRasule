@@ -1,0 +1,164 @@
+<div class="grid grid-cols-12 gap-10">
+  <div class="col-span-12 lg:col-span-12 flex justify-between">
+    <label class="text-5xl" [appCasl]="'test1'" >وقت بخیر</label>
+    <p-button label="ایجاد پست" class="p-button-style" />
+  </div>
+  <div class="col-span-12 lg:col-span-8">
+    <p-card
+
+      styleClass="card-style rounded-xl bg-[--content-color] text-slate-100 border-dashed border-2 border-gray-600 shadow-none p-4"
+    >
+      <div class="grid grid-cols-12 gap-4">
+        <p-card
+          class="col-span-12 lg:col-span-4 test-1"
+          styleClass="card-style rounded-xl bg-[--content-color] text-slate-100 border-dashed border-2 border-gray-600 shadow-none test-2"
+        >
+          <div class="flex justify-around p-4">
+            <div>
+              <p class="">تعداد نظرات</p>
+              <p>37 نظر</p>
+            </div>
+            <i class="border-r-2 pr-[15%] fa-regular fa-grid-2 text-5xl"></i>
+          </div>
+        </p-card>
+        <p-card
+          class="col-span-12 lg:col-span-4 test-1"
+          styleClass="card-style rounded-xl bg-[--content-color] text-slate-100 border-dashed border-2 border-gray-600 shadow-none test-2"
+        >
+          <div class="flex justify-around p-4">
+            <div>
+              <p class="">تعداد پست ها</p>
+              <p>128 پست</p>
+            </div>
+            <i class="border-r-2 pr-[15%] fa-regular fa-grid-2 text-5xl"></i>
+          </div>
+        </p-card>
+        <p-card
+          class="col-span-12 lg:col-span-4 test-1"
+          styleClass="card-style rounded-xl bg-[--content-color] text-slate-100 border-dashed border-2 border-gray-600 shadow-none test-2"
+        >
+          <div class="flex justify-around p-4">
+            <div>
+              <p class="">تعداد دسته بندی</p>
+              <p>49 دسته</p>
+            </div>
+            <i class="border-r-2 pr-[15%] fa-regular fa-grid-2 text-5xl"></i>
+          </div>
+        </p-card>
+      </div>
+    </p-card>
+    <br />
+    <p-card
+      styleClass="card-style rounded-xl bg-[--content-color] text-slate-100 border-dashed border-2 border-gray-600 shadow-none p-4"
+    >
+      <div class="grid grid-cols-12 gap-4">
+        <div class="col-span-12 lg:col-span-8 flex-col">
+          <div class="flex justify-center">
+            <label class="block pb-4">اطلاعات سایت</label>
+          </div>
+
+          <div class="flex justify-around">
+            <p-chip styleClass="pr-0 pl-3">
+              <span
+                class="bg-cyan-500 rounded-full w-8 h-8 flex items-center justify-center"
+              >
+                <i class="fa-regular fa-newspaper"></i>
+              </span>
+              <span class="mr-2 font-medium"> نعداد پست ها </span>
+            </p-chip>
+            <p>128 پست</p>
+          </div>
+
+          <div class="flex justify-around my-2">
+            <p-chip styleClass="pr-0 pl-3">
+              <span
+                class="bg-cyan-500 rounded-full w-8 h-8 flex items-center justify-center"
+              >
+                <i class="fa-regular fa-grid-2"></i>
+              </span>
+              <span class="mr-2 font-medium"> تعداد دسته ها </span>
+            </p-chip>
+            <p>49 دسته</p>
+          </div>
+
+          <div class="flex justify-around">
+            <p-chip styleClass="pr-0 pl-3">
+              <span
+                class="bg-cyan-500 rounded-full w-8 h-8 flex items-center justify-center"
+              >
+                <i class="fa-regular fa-code"></i>
+              </span>
+              <span class="mr-2 font-medium"> تعداد نظر ها </span>
+            </p-chip>
+            <p>37 نظر</p>
+          </div>
+        </div>
+        <div class="col-span-12 lg:col-span-4 flex justify-center">
+          <p></p>
+        </div>
+      </div>
+    </p-card>
+    <br />
+    <p-card
+      styleClass="card-style rounded-xl bg-[--content-color] text-slate-100 border-dashed border-2 border-gray-600 shadow-none p-4"
+    >
+      <div class="flex justify-around">
+        <div>
+          <apx-chart
+            [series]="chartOptions.series"
+            [chart]="chartOptions.chart"
+            [labels]="chartOptions.labels"
+            [responsive]="chartOptions.responsive"
+          ></apx-chart>
+        </div>
+      </div>
+    </p-card>
+  </div>
+
+  <div class="col-span-12 lg:col-span-4">
+    <p-card
+      styleClass="card-style rounded-xl bg-[--content-color] text-slate-100 border-dashed border-2 border-gray-600 shadow-none"
+    >
+      <label for=""
+        ><p-carousel
+          [value]="posts"
+          [numVisible]="1"
+          [numScroll]="1"
+          orientation="vertical"
+          verticalViewPortHeight="360px"
+        >
+          <ng-template let-post pTemplate="item">
+            <div class="border-1 surface-border border-round m-2 p-3">
+              <div class="mb-3">
+                <div class="relative mx-auto">
+                  <img
+                    [src]="post.Thumbnailimg"
+                    [alt]="post.name"
+                    class="w-full border-round"
+                  />
+                  <p-tag
+                    [value]="post.title"
+                    class="absolute"
+                    [ngStyle]="{ 'left.px': 5, 'top.px': 5 }"
+                  />
+                </div>
+              </div>
+              <div class="mb-3 font-medium">
+                {{ post.title }}
+              </div>
+              <div class="flex justify-content-between align-items-center">
+                <div class="mt-0 font-semibold text-xl">
+                  {{ "نویسنده مطلب : " + post.authordisplay }}
+                </div>
+                <span>
+                  <!-- <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
+                        <p-button icon="pi pi-shopping-cart" styleClass="ml-2" /> -->
+                </span>
+              </div>
+            </div>
+          </ng-template>
+        </p-carousel></label
+      >
+    </p-card>
+  </div>
+</div>

@@ -1,0 +1,100 @@
+<div class="p-4 md:px-1 h-full flex items-center">
+
+  <div id="sidebar-title" class="items-center justify-start p-4 gap-2 h-[5rem] w-[21rem] hidden md:flex">
+    <span class=" w-[2.4rem] h-[2.4rem]">
+      <img src="../../../../../assets/images/logo.png" alt="">
+    </span>
+    <p class="text-neutral-600 dark:text-slate-100 text-xl font-bold">
+      پنل حضور و غیاب
+    </p>
+  </div>
+
+  <div class="flex-grow flex items-center justify-between flex-col md:flex-row">
+
+    <div class="flex items-center gap-4 w-full justify-between md:justify-start">
+      <p-button icon="fa-duotone fa-solid fa-arrow-right-from-arc fa-xl "
+        class="bg-transparenthidden text-[--menu-text-color] hidden md:block " styleClass="h-7"
+        (onClick)="sidebarDesktop($event)" />
+
+      <p-button icon="fa-duotone fa-solid fa-arrow-left-from-arc fa-xl" class="bg-transparenthidden text-[--menu-text-color] md:hidden"
+        (onClick)="sidebarMobileVisible = true" />
+    </div>
+
+    <div class="flex items-center w-full justify-between mt-4 md:justify-end md:mt-0">
+
+      <div class="flex">
+        <svg display="hidden" class="hidden">
+          <symbol id="light" viewBox="0 0 24 24">
+            <g stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <line x1="12" y1="17" x2="12" y2="20" transform="rotate(0,12,12)" />
+              <line x1="12" y1="17" x2="12" y2="20" transform="rotate(45,12,12)" />
+              <line x1="12" y1="17" x2="12" y2="20" transform="rotate(90,12,12)" />
+              <line x1="12" y1="17" x2="12" y2="20" transform="rotate(135,12,12)" />
+              <line x1="12" y1="17" x2="12" y2="20" transform="rotate(180,12,12)" />
+              <line x1="12" y1="17" x2="12" y2="20" transform="rotate(225,12,12)" />
+              <line x1="12" y1="17" x2="12" y2="20" transform="rotate(270,12,12)" />
+              <line x1="12" y1="17" x2="12" y2="20" transform="rotate(315,12,12)" />
+            </g>
+            <circle fill="currentColor" cx="12" cy="12" r="5" />
+          </symbol>
+          <symbol id="dark" viewBox="0 0 24 24">
+            <path fill="currentColor"
+              d="M15.1,14.9c-3-0.5-5.5-3-6-6C8.8,7.1,9.1,5.4,9.9,4c0.4-0.8-0.4-1.7-1.2-1.4C4.6,4,1.8,7.9,2,12.5c0.2,5.1,4.4,9.3,9.5,9.5c4.5,0.2,8.5-2.6,9.9-6.6c0.3-0.8-0.6-1.7-1.4-1.2C18.6,14.9,16.9,15.2,15.1,14.9z" />
+          </symbol>
+        </svg>
+        <label class="switch">
+          <input class="switch__input" type="checkbox" role="switch" name="dark" [checked]="servDark.darkMode()" (change)="servDark.darkMode.set(!servDark.darkMode())" />
+          <svg class="switch__icon" width="24px" height="24px" aria-hidden="true">
+            <use href="#light" />
+          </svg>
+          <svg class="switch__icon" width="24px" height="24px" aria-hidden="true">
+            <use href="#dark" />
+          </svg>
+          <span class="switch__inner"></span>
+          <span class="switch__inner-icons">
+            <svg class="switch__icon" width="24px" height="24px" aria-hidden="true">
+              <use href="#light" />
+            </svg>
+            <svg class="switch__icon" width="24px" height="24px" aria-hidden="true">
+              <use href="#dark" />
+            </svg>
+          </span>
+          <span class="switch__sr">Dark Mode</span>
+        </label>
+      </div>
+
+
+      <div class="flex items-center md:pl-4" (click)="sidebarVisibleProfile = true" role="button">
+        <div
+          class="flex flex-col justify-center py-2 pr-4 pl-8 relative left-[-2rem] rounded-r-full bg-white dark:bg-[--content-color] min-w-32 w-auto h-12">
+          <span class="text-[--menu-text-hover-color] font-light">{{userStore?.info?.fullName}}</span>
+        </div>
+        <p-avatar icon="fa-duotone fa-user" styleClass="mr-2 bg-[--header-color] text-[--menu-text-color]" size="large"
+          class="z-10" shape="circle" />
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+<p-sidebar id="sidebar-mobile" [(visible)]="sidebarMobileVisible" position="right" styleClass="bg-[--body-color]">
+  <ng-template pTemplate="header">
+    <span class=" w-[2.4rem] h-[2.4rem]">
+      <img src="../../../../../assets/images/logo.png" alt="">
+    </span>
+    <p class="text-neutral-600 dark:text-slate-100 text-xl font-bold">
+      پنل حضور و غیاب
+    </p>
+  </ng-template>
+  <nav id="app-sidebar" class="nav-mobile"></nav>
+</p-sidebar>
+
+<!-- [(visible)]="sidebarVisibleProfile" -->
+<p-sidebar >
+  <!-- <h3>Sidebar</h3>
+  <p>
+      Lorem ipsum dolor sit amet...
+  </p> -->
+</p-sidebar>

@@ -1,0 +1,36 @@
+::ng-deep.search-style {
+
+  .p-icon-field {
+    position: relative;
+    width: 20rem;
+    height: 3rem;
+    display: block;
+    // border: 1px solid #475569;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+  }
+
+  p-inputicon{
+    color: var(--field-color);
+    position: absolute;
+    left: 1.4rem;
+    top: 0.9rem;
+    // transform: rotate(79deg);
+  }
+
+  .p-inputtext{
+    color: var(--field-text-color);
+    background-color: var(--field-color);
+    height: 100%;
+    width: 100%;
+    padding: 0 0.8rem 0 2.3rem;
+  } 
+}
+
+@media (max-width: 768px) {
+  ::ng-deep.search-style{
+    .p-icon-field {
+      width: 100%;
+    }
+  }
+} 

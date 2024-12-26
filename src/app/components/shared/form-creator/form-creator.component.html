@@ -1,0 +1,206 @@
+<form [formGroup]="dynamicFormGroup" (ngSubmit)="submitFormGroup()" autocomplete="off"
+  [appFormErrorHandler]="dynamicFormGroup">
+  <div class="pt-10 pb-6" [ngClass]="{ 'grid grid-cols-2 gap-5': type === 'main' }">
+    <ng-container *ngFor="let field of formFields; let i = index; last as isLast">
+      <div id="form-item" [ngClass]="{
+          'col-span-2': field.type === 'textarea' || field.type === 'editor',
+          'mb-10 px-6': type === 'dialog',
+          'mb-4': type === 'main'
+        }" *ngIf="field.type !== 'hidden'" [ngSwitch]="field.type">
+        <ng-template [ngSwitchCase]="'text' || 'number'">
+          <p-floatLabel class="floatLabel-style">
+            <span class="suffix" *ngIf="field.suffix">{{ field.suffix }}</span>
+            <input pInputText [ngClass]="{ '!pl-[4rem] ': field.suffix }" (input)="runCommand(field, $event)"
+              type="text" [formControlName]="field.name" mask="{{ field.mask }}" [dir]="field.ltr ? 'ltr' : 'rtl'"
+              [readOnly]="field.readonly" class="errorhandler" [id]="field.name" />
+            <label for="{{ field.name }}">
+              {{ field.label }}
+              <span *ngIf="field.validations.includes('required')">*</span>
+            </label>
+          </p-floatLabel>
+        </ng-template>
+        <ng-template [ngSwitchCase]="'password'">
+          <p-floatLabel class="floatLabel-style">
+            <p-password [formControlName]="field.name" promptLabel="رمز عبور را وارد کنید" weakLabel="رمز عبور ساده"
+              mediumLabel="رمز عبور متوسط" strongLabel="رمز عبور سخت" [toggleMask]="true"
+              [dir]="field.ltr ? 'ltr' : 'rtl'" styleClass="errorhandler" [inputId]="field.name">
+              <ng-template pTemplate="footer">
+                <p-divider />
+                <p class="mt-2">پیشنهادات</p>
+                <ul class="pl-2 ml-2 mt-0" style="line-height: 2">
+                  <li>فقط از حروف انگلیسی استفاده شود</li>
+                  <li>حداقل یک حرف کوچک</li>
+                  <li>حداقل یک حرف بزرگ</li>
+                  <li>حداقل یک عدد</li>
+                  <li>حداقل 8 کاراکتر</li>
+                </ul>
+              </ng-template>
+            </p-password>
+
+            <label for="{{ field.name }}">
+              {{ field.label }}
+              <span *ngIf="field.validations.includes('required')">*</span>
+            </label>
+          </p-floatLabel>
+        </ng-template>
+        <ng-template [ngSwitchCase]="'date'">
+            <ng-persian-datepicker [id]="field.name" [dateInitValue]="false" [timeEnable]="true" class="persian-datepicker errorhandler"
+              [uiHideAfterSelectDate]="true" dateFormat="YYYY/MM/DD" dateGregorianFormat="YYYY/MM/DD" [timeEnable] ="false"
+              (dateOnSelect)="runCommand(field, $event)">
+              <p-floatLabel class="floatLabel-style">
+                <input pInputText  type="text" [formControlName]="field.name" [id]="field.name" [dir]="field.ltr ? 'ltr' : 'rtl'"/>
+                <label for="{{ field.name }}">
+                  {{ field.label }}
+                  <span *ngIf="field.validations.includes('required')">*</span>
+                </label>
+              </p-floatLabel>
+            </ng-persian-datepicker>
+
+        </ng-template>
+        <ng-template [ngSwitchCase]="'textarea'">
+          <p-floatLabel class="floatLabel-style">
+            <textarea pInputTextarea [formControlName]="field.name" (input)="runCommand(field, $event)" rows="4"
+              [readOnly]="field.readonly" class="errorhandler" [id]="field.name"
+              [ngClass]="{'p-filled': ( dynamicFormGroup.get(field.name)?.value !== '' )}"></textarea>
+            <label for="{{ field.name }}">
+              {{ field.label }}
+              <span *ngIf="field.validations.includes('required')">*</span>
+            </label>
+          </p-floatLabel>
+        </ng-template>
+        <ng-template [ngSwitchCase]="'switch'">
+          <div class="style-inputSwitch flex items-center gap-6">
+            <label [for]="field.name">{{ field.label }}</label>
+            <span class="inline-flex justify-end flex-grow">
+              <p-divider type="dashed" layout="horizontal" align="center"
+                styleClass="w-full border border-dashed border-white/25" />
+            </span>
+            <p-inputSwitch formControlName="checked" [inputId]="field.name" (onChange)="runCommand(field, $event)"
+              [formControlName]="field.name" />
+          </div>
+        </ng-template>
+        <ng-template [ngSwitchCase]="'select'">
+          <p-floatLabel class="floatLabel-style" [ngClass]="{ 'select-floatLabel': isLast }">
+            <p-dropdown styleClass="w-full" [options]="field.extraData" optionLabel="label" optionValue="value"
+              [filter]="field.extraOption?.filter" filterBy="{{ field.extraOption?.filterBy }}"
+              [showClear]="field.extraOption?.showClear" [checkmark]="true" [placeholder]="field.placeholder"
+              [formControlName]="field.name" (onChange)="runCommand(field, $event)" class="errorhandler"
+              [inputId]="field.name" />
+            <label for="{{ field.name }}">
+              {{ field.label }}
+              <span *ngIf="field.validations.includes('required')">*</span>
+            </label>
+          </p-floatLabel>
+        </ng-template>
+        <ng-template [ngSwitchCase]="'select_template'">
+          <p-floatLabel class="floatLabel-style">
+            <p-dropdown [options]="field.extraData" [formControlName]="field.name" optionLabel="label"
+              [filter]="field.extraOption?.filter" filterBy="{{ field.extraOption?.filterBy }}"
+              [showClear]="field.extraOption?.showClear" styleClass="w-full" class="errorhandler"
+              [inputId]="field.name">
+              <ng-template pTemplate="filter" let-options="options">
+                <div class="flex gap-1">
+                  <div class="relative w-full">
+                    <i class="fa-duotone fa-magnifying-glass fa-lg !absolute left-3 top-8"></i>
+                    <input type="text" pInputText placeholder="جستجو" (keyup)="customFilterFunction($event, options)" />
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template let-data pTemplate="item">
+                <div class="flex items-center gap-2">
+                  <img *ngIf="data.icon" [src]="data.icon" class="size-5" />
+                  <div>{{ data.label }}</div>
+                </div>
+              </ng-template>
+            </p-dropdown>
+
+            <label for="{{ field.name }}">
+              {{ field.label }}
+              <span *ngIf="field.validations.includes('required')">*</span>
+            </label>
+          </p-floatLabel>
+        </ng-template>
+        <ng-template [ngSwitchCase]="'select_button'">
+          <p-selectButton [options]="field.extraData" [formControlName]="field.name" [allowEmpty]="false"
+            optionLabel="label" optionValue="value" class="errorhandler" [id]="field.name" />
+        </ng-template>
+        <ng-template [ngSwitchCase]="'autoComplete'">
+          <p-floatLabel class="floatLabel-style">
+            <p-autoComplete #index styleClass="w-full" field="{{ field.extraOption?.filterBy }}"
+              [formControlName]="field.name" [dropdown]="true" [showClear]="true"
+              [suggestions]="field.extraDataComplete" [inputId]="field.name"
+              (onFocus)="onFocusAutoComplete(field,index)" (onSelect)="onSelectAutoComplete($event,index)"
+              (completeMethod)="runCommand(field, $event)">
+              <ng-template let-item pTemplate="group">
+                <div class="flex items-center gap-2">
+                  <img *ngIf="item.icon" [src]="item.icon" class="size-5" />
+                  <div>{{ item.label }}</div>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+
+            <label for="{{ field.name }}">
+              {{ field.label }}
+              <span *ngIf="field.validations.includes('required')">*</span>
+            </label>
+          </p-floatLabel>
+        </ng-template>
+        <ng-template [ngSwitchCase]="'editor'">
+          <quill-editor [modules]="editorModules" (onEditorCreated)="activateRTL($event)"
+            (onEditorChanged)="runCommand(field, $event)" [formControlName]="field.name" class="errorhandler"
+            [id]="field.name"></quill-editor>
+        </ng-template>
+      </div>
+    </ng-container>
+
+    <ng-content select="[extraBody]"></ng-content>
+  </div>
+
+  @if (type === 'main') {
+
+  <div class="flex justify-end gap-5 mt-5">
+    <div class="w-32 h-12">
+      <p-button type="reset" label="پاک کردن فرم" (onClick)="resetFormGroup()"
+        styleClass="block w-full h-full text-[--field-text-color] bg-[--header-color] border-hidden rounded-[--border-radius] text-sm focus:shadow-none" />
+    </div>
+
+    @if (options.editable) {
+    <div class="w-32 h-12">
+      <p-button type="submit" label="ویرایش {{ options.label }}" [disabled]="dynamicFormGroup.invalid"
+        styleClass="btn-warning block w-full h-full border-hidden rounded-[--border-radius] text-sm focus:shadow-none"
+        [loading]="options.loading" size="small" />
+    </div>
+    } @else {
+    <div class="w-32 h-12">
+      <p-button type="submit" label="ثبت {{ options.label }}" [disabled]="dynamicFormGroup.invalid"
+        styleClass="btn-success block w-full h-full border-hidden rounded-[--border-radius] text-sm focus:shadow-none"
+        [loading]="options.loading" size="small" />
+    </div>
+    }
+  </div>
+
+  } @else {
+
+  <div class="flex justify-center mt-5">
+    <div class="w-full h-12">
+      <p-button type="reset" label="پاک کردن فرم" (onClick)="resetFormGroup()"
+        styleClass="block w-full h-full text-[--field-text-color] bg-neutral-300 dark:bg-[--header-color] border-hidden rounded-none text-sm focus:shadow-none" />
+    </div>
+
+    @if (options.editable) {
+    <div class="w-full h-12">
+      <p-button type="submit" label="ویرایش {{ options.label }}" [disabled]="dynamicFormGroup.invalid"
+        styleClass="btn-warning block w-full h-full border-hidden rounded-none text-sm focus:shadow-none"
+        [loading]="options.loading" size="small" />
+    </div>
+    } @else {
+    <div class="w-full h-12">
+      <p-button type="submit" label="ثبت {{ options.label }}" [disabled]="dynamicFormGroup.invalid"
+        styleClass="btn-success block w-full h-full border-hidden rounded-none text-sm focus:shadow-none"
+        [loading]="options.loading" size="small" />
+    </div>
+    }
+  </div>
+
+  }
+</form>

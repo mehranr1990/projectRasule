@@ -1,0 +1,2 @@
+<p-paginator *ngIf="meta" (onPageChange)="onPageChange($event)"  [rows]="meta.itemsPerPage"
+  [totalRecords]="meta.totalItems" [rowsPerPageOptions]="rowsPerPage" />

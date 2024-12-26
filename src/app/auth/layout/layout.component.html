@@ -1,0 +1,47 @@
+<!-- <main class="flex items-center	justify-center w-full bg-zinc-900">
+  <section class="w-1/4 p-6 rounded-2xl	shadow-xl bg-zinc-800">
+    <router-outlet />
+  </section>
+</main> -->
+
+<div id="container" class="container-login" [ngClass]="{ 'sign-up-mode': switchLogin }">
+  <div class="forms-container">
+    <div class="signin-signup">
+
+      <section *ngIf="!switchLogin" id="app-login" class="sign-in-form"></section>
+
+      <section *ngIf="switchLogin" id="app-register" class="sign-up-form"></section>
+
+    </div>
+  </div>
+
+  <div class="panels-container">
+    <div class="panel-login left-panel">
+      <div class="content">
+        <h3>حساب کاربری ندارید؟</h3>
+        <p>
+          برای دسترسی به امکانات پنل لطفا ثبت نام کنید.
+        </p>
+        <button class="btn-login transparent" id="sign-up-btn" (click)="switchLogin = !switchLogin">
+           شروع ثبت نام
+        </button>
+      </div>
+      <img src="../../../assets/images/log.svg" class="image" alt="" />
+    </div>
+    <div class="panel-login right-panel">
+      <div class="content">
+        <h3>حساب کاربری دارید؟</h3>
+        <p>
+          برای دسترسی به امکانات پنل لطفا با حساب کاربری خود وارد پنل شوید.
+        </p>
+        <button class="btn-login transparent" id="sign-in-btn" (click)="switchLogin = !switchLogin">
+          ورود به پنل
+        </button>
+      </div>
+      <img src="../../../assets/images/register.svg" class="image" alt="" />
+    </div>
+  </div>
+</div>
+
+
+<p-toast key="toasts" position="bottom-center"/>

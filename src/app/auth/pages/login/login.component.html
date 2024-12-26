@@ -1,0 +1,25 @@
+<form [formGroup]="loginForm" (ngSubmit)="submitLogin()" [appFormErrorHandler]="loginForm" autocomplete="off">
+
+  <h2 class="title">ورود به پنل</h2>
+  <div class="input-field !mt-0">
+    <i class="fas fa-user"></i>
+    <input type="text" id="mobile" formControlName="mobile" placeholder="09XXXXXXXXX"
+            selectAllInputFocusIn class="errorhandler"/>
+  </div>
+  <div class="input-field">
+    <i class="fas fa-lock"></i>
+    <input type="password" placeholder="کلمه عبور" id="password" formControlName="password" class="errorhandler"/>
+  </div>
+  <button type="submit" class="btn-login solid" [disabled]="loginForm.invalid">
+
+    @if (btnLoadin) {
+      <i class="fa-duotone fa-solid fa-spinner-third fa-spin fa-spin-reverse fa-xl"></i>
+    } @else {
+      <span>
+      ورود به پنل
+    </span>
+    }
+
+  </button>
+
+</form>

@@ -1,0 +1,14 @@
+<main id="main" class="h-full">
+  <section id="app-topbar" class="h-[9rem] md:h-[6rem] bg-[--body-color]"></section>
+  <section class="flex h-[calc(100vh-9rem)] md:h-[calc(100vh-6rem)]">
+    <div id="app-sidebar" class="fixed h-full right-0 w-[20rem] bg-[--body-color] hidden sidebar-min md:block overflow-auto pb-24" dir="ltr"></div>    
+    <div id="wrapper" class="bg-[--body-color]	w-full mr-0 px-2 pb-8 md:mr-[20rem] ">
+      <div class="bg-[--content-color] border border-neutral-300 h-full w-full rounded-2xl overflow-auto dark:border-hidden py-4 px-0 md:p-5">
+        <router-outlet />
+      </div>
+    </div>
+  </section>
+</main>
+
+
+<p-toast key="toasts" position="bottom-center"/>

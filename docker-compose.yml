@@ -1,0 +1,9 @@
+version: '3.8'
+name: 'admin'
+services:
+  front_client: 
+    build: .
+    container_name: admin 
+    ports:
+      - 2600:80
+    restart: always

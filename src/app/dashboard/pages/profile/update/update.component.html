@@ -1,0 +1,47 @@
+<p-button label="ویرایش اطلاعات" (onClick)="showDialog()" />
+<!-- <p-button (onClick)="showDialog()" label="افزودن دسته بندی" /> -->
+<p-dialog
+  header="Edit Profile"
+  [modal]="true"
+  [(visible)]="visible"
+  [style]="{ width: '35rem' }"
+>
+  <span class="p-text-secondary block mb-5"></span>
+
+  <div class="mb-4 flex justify-center">
+    @if (!imageUploaded) {
+    <p-fileUpload
+      chooseLabel="انتخاب"
+      chooseIcon="pi pi-upload"
+      uploadLabel="بارگذاری"
+      cancelLabel="لغو"
+      name="demo[]"
+      accept="image/*"
+      customUpload="true"
+      (uploadHandler)="uploadHandler($event)"
+    />
+    }@else {
+    <div class="flex-col justify-center">
+      <div class="">
+        <p-image [src]="imageSrc" alt="Image" width="250" />
+      </div>
+      <p-button
+        class="justify-center flex p-button-style"
+        label="بازنشانی"
+        (onClick)="resetUploadimageSrc()"
+      />
+    </div>
+
+    }
+  </div>
+  @if (showmodal) {
+  <form-creator
+    [fields]="formFeilds"
+    [values]="formValues"
+    (submitForm)="submitform($event)"
+    [options]="formOptions"
+    (submitEditForm)="submitform($event)"
+  >
+  </form-creator>
+  }
+</p-dialog>

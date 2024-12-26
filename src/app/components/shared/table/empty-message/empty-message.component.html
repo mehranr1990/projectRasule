@@ -1,0 +1,12 @@
+<ng-container *ngIf="loading else elseLoading">
+  <div>
+    <div class="loader-Progress"></div>
+  </div>
+</ng-container>
+<ng-template #elseLoading>
+  <div>
+    <img src="../../../../assets/images/no_data_found.svg" alt
+      class="size-32 mx-auto my-5">
+    <p class="text-lg font-bold text-zinc-400">اطلاعاتی برای نمایش پیدا نشد!</p>
+  </div>
+</ng-template>

@@ -1,0 +1,17 @@
+<container-element [ngSwitch]="typeOpe">
+  <ng-container *ngSwitchCase="'dropdown'">
+    <p-button (onClick)="op.toggle($event)" icon="fa-solid fa-ellipsis-vertical fa-lg"
+      styleClass="w-10 h-10 bg-headerColor text-themeColor1" [rounded]="true" />
+    <p-overlayPanel #op styleClass="style-overlaypanel">
+      <div>
+        <ng-content select=".op-dropdown"></ng-content>
+      </div>
+    </p-overlayPanel>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="'button'">
+    <div class="op-button">
+      <ng-content select=".op-button"></ng-content> 
+    </div>
+  </ng-container>
+</container-element>

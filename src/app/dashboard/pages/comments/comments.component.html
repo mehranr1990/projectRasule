@@ -1,0 +1,84 @@
+<p-card styleClass="card-style rounded-xl bg-[--content-color] text-slate-100 border-none shadow-none">
+  <p-table [value]="comments" [tableStyle]="{ 'min-width': '50rem' }" styleClass="tb-style">
+    <ng-template pTemplate="caption">
+      <div class="flex items-center justify-between">
+        <!-- <p class="mb-0 text-slate-100">مشتری</p> -->
+
+        <input type="text" pInputText [(ngModel)]="value" [style]="{height:'33px'}" />
+
+        <p-button
+          (onClick)="postid()"
+          class="p-button-style"
+          label="برسی کامنتهای پست"
+        />
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th>شماره نظر</th>
+        <th>توضیحات</th>
+        <th>نویسنده نظر</th>
+        <th>شماره نظر پدر</th>
+        <th style="min-width: 150px">تغییرات</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-comment>
+      <tr>
+        <td>{{ comment.id }}</td>
+        <td>{{ comment.text }}</td>
+        <td>{{ comment.userName }}</td>
+        <td>{{ comment.parentId }}</td>
+        <td>
+          <p-button
+          styleClass="bg-green-500/25 w-10 h-10 hover:bg-green-500/75 mx-2"
+          icon="pi pi-eye"
+            severity="danger"
+            [rounded]="true"
+            [outlined]="true"
+            (onClick)="viewComments(comment)"
+          />
+          <p-button
+          styleClass="bg-cyan-500/25 w-10 h-10 hover:bg-cyan-500/75"
+            icon="pi pi-question"
+            severity="danger"
+            [rounded]="true"
+            [outlined]="true"
+            (onClick)="confirm(comment)"
+          />
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>
+<p-toast />
+<p-confirmDialog class="style-confirm"/>
+  <!-- <ng-template pTemplate="headless" let-message>
+    <div
+      class="flex flex-column align-items-center p-5 surface-overlay border-round"
+    >
+      <div
+        class="border-circle bg-primary inline-flex justify-content-center align-items-center h-6rem w-6rem"
+      >
+        <i class="pi pi-question text-5xl"></i>
+      </div>
+      <span class="font-bold text-2xl block mb-2 mt-4">
+        {{ message.header }}
+      </span>
+      <p class="mb-0">{{ message.message }}</p>
+      <div class="flex align-items-center gap-2 mt-4">
+        <button
+          pButton
+          label="تایید"
+          (click)="cd.accept()"
+          class="w-8rem"
+        ></button>
+        <button
+          pButton
+          label="انصراف"
+          (click)="cd.reject()"
+          class="p-button-outlined w-8rem"
+        ></button>
+      </div>
+    </div>
+  </ng-template> 
+</p-confirmDialog > -->
