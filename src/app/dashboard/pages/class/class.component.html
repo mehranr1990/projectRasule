@@ -51,16 +51,16 @@
             severity="danger"
             [rounded]="true"
             [outlined]="true"
-            (onClick)="addSoldier()"
+            (onClick)="addSoldier(class)"
           />
-          <!-- <p-button
+          <p-button
             styleClass="bg-green-500/25 w-10 h-10 hover:bg-green-500/75"
             icon="pi pi-eye"
-              severity="primary"
-              [rounded]="true"
-              [outlined]="true"
-              (onClick)="ViewCategory(Category)"
-            /> -->
+            severity="primary"
+            [rounded]="true"
+            [outlined]="true"
+            (onClick)="ViewEnrollments(class)"
+          />
         </td>
       </tr>
     </ng-template>
@@ -72,7 +72,7 @@
 <p-confirmDialog class="style-confirm" />
 
 <p-dialog
-  header="افزودن کلاس"
+  header="تغییر کلاس"
   [modal]="true"
   [(visible)]="visible"
   [style]="{ width: '35rem' }"
@@ -83,5 +83,152 @@
     (submitEditForm)="submitform($event)"
     [options]="formOptions"
     [values]="formValues"
+  />}
+</p-dialog>
+
+<p-dialog
+  header="انتخاب سرباز"
+  [modal]="true"
+  [(visible)]="visible1"
+  [style]="{ width: '35rem' }"
+>
+  <p-table
+    [value]="soldier"
+    [paginator]="true"
+    [rows]="10"
+    [rowsPerPageOptions]="[5, 10, 20]"
+    styleClass="tb-style"
+    responsiveLayout="stack"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex items-center justify-between">
+        <!-- <p class="mb-0 text-slate-100">مشتری</p> -->
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="min-width: 25%">نام و نام خانوادگی</th>
+        <th style="min-width: 15%">شماره پرسنلی</th>
+        <th style="min-width: 200px">تغییرات</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-soldeir>
+      <tr>
+        <td>
+          <span class="p-column-title">نام و نام خانوادگی : </span
+          >{{ soldeir.firstName + " " + soldeir.lastName }}
+        </td>
+        <td>
+          <span class="p-column-title">شماره پرسنلی : </span
+          >{{ soldeir.personalNumber }}
+        </td>
+        <td class="justify-end">
+          <p-button
+            styleClass="bg-sky-500/25 w-10 h-10 hover:bg-sky-500/75"
+            size="small"
+            icon="pi pi-check"
+            [rounded]="true"
+            [outlined]="true"
+            severity="success"
+            (onClick)="addtoclass(soldeir)"
+          />
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-dialog>
+<p-dialog
+  header="انتخاب سرباز"
+  [modal]="true"
+  [(visible)]="visible2"
+  [style]="{ width: '55rem' }"
+>
+  <p-table
+    [value]="enrollmentsinclass"
+    [paginator]="true"
+    [rows]="10"
+    [rowsPerPageOptions]="[5, 10, 20]"
+    styleClass="tb-style"
+    responsiveLayout="stack"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex items-center justify-between">
+        <!-- <p class="mb-0 text-slate-100">مشتری</p> -->
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="min-width: 25%">نام و نام خانوادگی</th>
+        <th style="min-width: 15%">شماره پرسنلی</th>
+        <th style="min-width: 200px">حضور و غیاب</th>
+        <th style="min-width: 200px">تغییرات</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-enrollments>
+      <tr>
+        <td>
+          <span class="p-column-title">نام و نام خانوادگی : </span
+          >{{
+            enrollments.soldier.firstName + " " + enrollments.soldier.lastName
+          }}
+        </td>
+        <td>
+          <span class="p-column-title">شماره پرسنلی : </span
+          >{{ enrollments.soldier.personalNumber }}
+        </td>
+        <td class="">
+          <p-button
+            styleClass="bg-green-500/25 w-10 h-10 hover:bg-green-500/75 mx-2"
+            size="small"
+            icon="pi pi-check"
+            [rounded]="true"
+            [outlined]="true"
+            severity="success"
+            (onClick)="presentInClass(enrollments)"
+          />
+          <p-button
+            styleClass="bg-rose-500/25 w-10 h-10 hover:bg-rose-500/75 mx-2"
+            size="small"
+            icon="pi pi-times"
+            [rounded]="true"
+            [outlined]="true"
+            severity="success"
+            (onClick)="absentInClass(enrollments)"
+          />
+          <p-button
+            styleClass="bg-sky-500/25 w-10 h-10 hover:bg-sky-500/75 mx-2"
+            size="small"
+            icon="pi pi-question"
+            [rounded]="true"
+            [outlined]="true"
+            severity="success"
+            (onClick)="setStatusAttendances(enrollments)"
+          />
+        </td>
+        <td class="">
+          <p-button
+            styleClass="bg-rose-500/25 w-10 h-10 hover:bg-rose-500/75"
+            size="small"
+            icon="pi pi-times"
+            [rounded]="true"
+            [outlined]="true"
+            severity="success"
+            (onClick)="removefromclass(enrollments)"
+          />
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  </p-dialog>
+  <p-dialog
+  header="وضعیت حضور و غیاب سرباز"
+  [modal]="true"
+  [(visible)]="visibleform"
+  [style]="{ width: '55rem' }"
+>
+  @if(visibleform){
+  <form-creator
+    [fields]="formFeilds1"
+    (submitForm)="submitform1($event)"
   />}
 </p-dialog>

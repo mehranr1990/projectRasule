@@ -32,7 +32,7 @@ export class ClassService {
 
     return this.api.post(`/classes`, body, { headers }).pipe(tap((resp) => {}));
   }
-  public update(id,body) {
+  public update(id, body) {
     const token = localStorage.getItem('token');
     console.log(token);
 
@@ -40,6 +40,63 @@ export class ClassService {
       Authorization: 'Bearer ' + token,
     });
 
-    return this.api.put(`/classes/${id}`, body, { headers }).pipe(tap((resp) => {}));
+    return this.api
+      .put(`/classes/${id}`, body, { headers })
+      .pipe(tap((resp) => {}));
+  }
+
+  addSoldierToClass(body) {
+    const token = localStorage.getItem('token');
+    console.log(token);
+
+    const headers: HttpHeaders = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+    });
+
+    return this.api
+      .post(`/enrollments`, body, { headers })
+      .pipe(tap((resp) => {}));
+  }
+
+  enrollments() {
+    const token = localStorage.getItem('token');
+    console.log(token);
+
+    const headers: HttpHeaders = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+    });
+
+    return this.api
+      .get(`/enrollments`, { headers })
+      .pipe(tap((resp) => {}));
+  }
+  removeEnrollments(id){
+    const token = localStorage.getItem('token');
+    console.log(token);
+
+    const headers: HttpHeaders = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+    });
+
+    return this.api
+      .delete(`/enrollments/${id}`, { headers })
+      .pipe(tap((resp) => {}));
+  }
+
+
+
+  attendances(body){
+    const token = localStorage.getItem('token');
+    console.log(token);
+
+    const headers: HttpHeaders = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+    });
+
+    return this.api
+      .post(`/attendances`, body, { headers })
+      .pipe(tap((resp) => {
+        
+      })); 
   }
 }
