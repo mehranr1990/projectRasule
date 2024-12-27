@@ -1,0 +1,66 @@
+<p-card styleClass="card-style rounded-xl bg-[--content-color] text-slate-100 border-none shadow-none">
+    <p-table
+      [value]="classes"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      styleClass="tb-style"
+    >
+      <ng-template pTemplate="caption">
+        <div class="flex items-center justify-between">
+          <!-- <p class="mb-0 text-slate-100">مشتری</p> -->
+  
+          <!-- <p-button label="بازگشت" (onClick)="return()" class="p-button-style" /> -->
+  
+          <div>
+            <app-create></app-create>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th>دوره</th>
+          <th>تاریخ شروع دوره</th>
+          <th>تاریخ پایان دوره</th>
+          <th>نام مدرس کلاس</th>
+          <th>نوع کلاس</th>
+          <th>ظرفیت کلاس</th>
+          <th>تغییرات</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-class>
+        <tr>
+          <td>{{ class.title }}</td>
+          <td>{{ class.startDate }}</td>
+          <td>{{ class.endDate }}</td>
+          <td>{{ class.teacher }}</td>
+          <td>{{ class.classType }}</td>
+          <td>{{ class.capacity }}</td>
+          <td>
+            <!-- <app-edit [category]="Category"></app-edit> -->
+            <!-- <p-button
+            styleClass="bg-rose-500/25 w-10 h-10 hover:bg-rose-500/75 mx-2"
+            icon="pi pi-save"
+              severity="danger"
+              [rounded]="true"
+              [outlined]="true"
+              (onClick)="archiveCourses(Category)"
+            /> -->
+            <!-- <p-button
+            styleClass="bg-green-500/25 w-10 h-10 hover:bg-green-500/75"
+            icon="pi pi-eye"
+              severity="primary"
+              [rounded]="true"
+              [outlined]="true"
+              (onClick)="ViewCategory(Category)"
+            /> -->
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-card>
+  <br />
+  
+  
+  <p-toast/>
+  <p-confirmDialog class="style-confirm"/>
+  
+  

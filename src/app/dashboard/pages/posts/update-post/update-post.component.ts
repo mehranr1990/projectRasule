@@ -19,6 +19,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CardModule } from 'primeng/card';
 import { environment } from 'src/environments/environment';
+import { SoldierService } from 'src/app/core/services/soldier.service';
 @Component({
   selector: 'app-update-post',
   standalone: true,
@@ -29,7 +30,7 @@ import { environment } from 'src/environments/environment';
     FormsModule,
     MultiSelectModule,
     FloatLabelModule,
-    CardModule
+    CardModule,
   ],
   templateUrl: './update-post.component.html',
   styleUrl: './update-post.component.scss',
@@ -54,87 +55,101 @@ export class UpdatePostComponent implements OnInit {
     private categoryservice: CategoriesService,
     private tagservice: TagsService,
     private postservice: PostsService,
+    private soldierService:SoldierService,
     private route: ActivatedRoute,
-    private _router:Router
+    private _router: Router
   ) {}
   ngOnInit() {
     this.sub = this.route.params.subscribe((params) => {
       this.id = params['postId'];
-      
+
     });
 
-    this.postservice.get(this.id).subscribe({
-      next: (resp) => {
+    this.soldierService.get(this.id).subscribe({
+      next: (resp:any) => {
+        console.log(resp);
         
         this.formValues = {
-          title: resp.title,
-          approximateTime: resp.approximateTime,
-          description: resp.description,
-          postName: resp.postName,
-          body: resp.body,
+          firstName:resp.firstName,
+          lastName:resp.lastName,
+          personalNumber:resp.personalNumber,
+          fatherName:resp.fatherName,
+          birthDate:resp.birthDate,
+          birthPlace:resp.birthPlace,
+          maritalStatus:resp.maritalStatus,
+          address:resp.address,
+          phoneNumber:resp.phoneNumber,
+          emergencyContact:resp.emergencyContact,
+          rank:resp.rank,
+          service:resp.service,
+          conscriptionStartDate:resp.conscriptionStartDate,
+          conscriptionEndDate:resp.conscriptionEndDate,
+          photoUrl:resp.photoUrl,
+          createdAt:resp.createdAt,
+          updatedAt:resp.updatedAt,
         };
-        const sC: any = [];
-        for (let index = 0; index < resp.categoreis.length; index++) {
-          sC.push({
-            name: resp.categoreis[index],
-            code: resp.categoreis[index],
-          });
-        }
-        const tC: any = [];
-        for (let index = 0; index < resp.tags.length; index++) {
-          tC.push({
-            name: resp.tags[index],
-            code: resp.tags[index],
-          });
-        }
-        this.selectedCategories = sC;
-        this.selectedTags = tC;
+        // const sC: any = [];
+        // for (let index = 0; index < resp.categoreis.length; index++) {
+        //   sC.push({
+        //     name: resp.categoreis[index],
+        //     code: resp.categoreis[index],
+        //   });
+        // }
+        // const tC: any = [];
+        // for (let index = 0; index < resp.tags.length; index++) {
+        //   tC.push({
+        //     name: resp.tags[index],
+        //     code: resp.tags[index],
+        //   });
+        // }
+        // this.selectedCategories = sC;
+        // this.selectedTags = tC;
 
-        this.bodyimageUploaded = true;
-        this.headerimageUploaded = true;
+        // this.bodyimageUploaded = true;
+        // this.headerimageUploaded = true;
 
-        this.headerImg = resp.Thumbnailimg;
-        this.bodyImg = resp.titleimg!;
+        // this.headerImg = resp.Thumbnailimg;
+        // this.bodyImg = resp.titleimg!;
 
-        this.headerImgSrc = resp.Thumbnailimg;
-        this.bodyImgSrc = resp.titleimg!;
+        // this.headerImgSrc = resp.Thumbnailimg;
+        // this.bodyImgSrc = resp.titleimg!;
 
         this.defaultValue = true;
       },
     });
 
-    this.categoryservice.getAll().subscribe({
-      next: (resp) => {
-        for (let index = 0; index < resp.length; index++) {
-          this.categories.push({
-            name: resp[index].title,
-            code: resp[index].title,
-          });
-          if (resp[index].categoryEntities.length > 0) {
-            for (
-              let index1 = 0;
-              index1 < resp[index].categoryEntities.length;
-              index1++
-            ) {
-              this.categories.push({
-                name: resp[index].categoryEntities[index1].title,
-                code: resp[index].categoryEntities[index1].title,
-              });
-            }
-          }
-        }
-      },
-    });
-    this.tagservice.getAll().subscribe({
-      next: (resp) => {
-        for (let index = 0; index < resp.length; index++) {
-          this.tags.push({
-            name: resp[index].title,
-            code: resp[index].title,
-          });
-        }
-      },
-    });
+    // this.categoryservice.getAll().subscribe({
+    //   next: (resp) => {
+    //     for (let index = 0; index < resp.length; index++) {
+    //       this.categories.push({
+    //         name: resp[index].title,
+    //         code: resp[index].title,
+    //       });
+    //       if (resp[index].categoryEntities.length > 0) {
+    //         for (
+    //           let index1 = 0;
+    //           index1 < resp[index].categoryEntities.length;
+    //           index1++
+    //         ) {
+    //           this.categories.push({
+    //             name: resp[index].categoryEntities[index1].title,
+    //             code: resp[index].categoryEntities[index1].title,
+    //           });
+    //         }
+    //       }
+    //     }
+    //   },
+    // });
+    // this.tagservice.getAll().subscribe({
+    //   next: (resp) => {
+    //     for (let index = 0; index < resp.length; index++) {
+    //       this.tags.push({
+    //         name: resp[index].title,
+    //         code: resp[index].title,
+    //       });
+    //     }
+    //   },
+    // });
   }
   resetUploadHeaderPic() {
     this.headerimageUploaded = false;
@@ -142,11 +157,6 @@ export class UpdatePostComponent implements OnInit {
     this.headerImgSrc = '';
   }
 
-  resetUploadBodyPic() {
-    this.bodyimageUploaded = false;
-    this.bodyImg = '';
-    this.bodyImgSrc = '';
-  }
   public formOptions: FormModalOptions = {
     doubleCheck: true,
     editable: true,
@@ -158,42 +168,105 @@ export class UpdatePostComponent implements OnInit {
   formFields: FormModalField[] = [
     {
       type: FormFieldType.TEXT,
-      name: 'title',
+      name: 'firstName',
       label: 'نام',
       validations: ['required'],
       value: '',
     },
     {
       type: FormFieldType.TEXT,
-      name: 'approximateTime',
+      name: 'lastName',
       label: 'نام خانوادگی',
       validations: ['required'],
       value: '',
     },
     {
       type: FormFieldType.TEXT,
-      name: 'description',
+      name: 'fatherName',
+      label: 'نام پدر',
+      validations: ['required'],
+      value: '',
+    },
+    {
+      type: FormFieldType.NUMBER,
+      name: 'personalNumber',
       label: 'شماره پرسنلی',
       validations: ['required'],
       value: '',
     },
-
     {
-      type: FormFieldType.TEXT,
-      name: 'postName',
-
-      label: 'کد ملی',
+      type: FormFieldType.DATE,
+      name: 'birthDate',
+      label: 'تاریخ تولد',
       validations: ['required'],
       value: '',
     },
     {
       type: FormFieldType.TEXT,
-      name: 'postName',
-
-      label: 'رده خدمتی',
+      name: 'birthPlace',
+      label: 'محل تولد',
       validations: ['required'],
       value: '',
     },
+
+    {
+      type: FormFieldType.TEXT,
+      name: 'maritalStatus',
+      label: 'وضعیت تاهل',
+      validations: ['required'],
+      value: '',
+    },
+    {
+      type: FormFieldType.TEXT,
+      name: 'address',
+      label: 'آدرس محل سکونت',
+      validations: ['required'],
+      value: '',
+    },
+    {
+      type: FormFieldType.NUMBER,
+      name: 'phoneNumber',
+      label: 'شماره تماس',
+      validations: ['required'],
+      value: '',
+    },
+    {
+      type: FormFieldType.NUMBER,
+      name: 'emergencyContact',
+      label: 'شماره تماس اضطراری',
+      validations: ['required'],
+      value: '',
+    },
+    {
+      type: FormFieldType.TEXT,
+      name: 'rank',
+      label: 'درجه نظامی',
+      validations: ['required'],
+      value: '',
+    },
+    {
+      type: FormFieldType.TEXT,
+      name: 'service',
+      label: 'واحد خدمتی',
+      validations: ['required'],
+      value: '',
+    },
+    {
+      type: FormFieldType.DATE,
+      name: 'conscriptionStartDate',
+      label: 'تاریخ شروع خدمت',
+      validations: ['required'],
+      value: '',
+    },
+
+    {
+      type: FormFieldType.DATE,
+      name: 'conscriptionEndDate',
+      label: 'تاریخ پایان خدمت',
+      validations: ['required'],
+      value: '',
+    },
+
     {
       type: FormFieldType.EDITOR,
       name: 'body',
@@ -208,14 +281,12 @@ export class UpdatePostComponent implements OnInit {
     form.bodyImage = this.bodyImgSrc;
     form.categoriesName = this.selectedCategories.map((resp) => resp.name);
     form.tags = this.selectedTags.map((resp) => resp.name);
-     delete form.postName
-     this.postservice.update(form).subscribe({next:(resp)=>{
-      
-      
-    this._router.navigate(['dashboard/posts']);
-      
-     }})
-    
+    delete form.postName;
+    this.postservice.update(form).subscribe({
+      next: (resp) => {
+        this._router.navigate(['dashboard/posts']);
+      },
+    });
   }
   headerUploadHandler(resp) {
     const formData = new FormData();
@@ -225,18 +296,6 @@ export class UpdatePostComponent implements OnInit {
         this.headerimageUploaded = true;
         this.headerImgSrc = resp.body;
         this.headerImg = `${environment.apiUrl}/Image/Download/${resp.body}`;
-      },
-    });
-  }
-
-  bodyUploadHandler(resp) {
-    const formData = new FormData();
-    formData.append('file', resp.files[0]);
-    this.imageApi.upload(formData).subscribe({
-      next: (resp) => {
-        this.bodyimageUploaded = true;
-        this.bodyImgSrc = resp.body;
-        this.bodyImg = `${environment.apiUrl}/Image/Download/${resp.body}`;
       },
     });
   }

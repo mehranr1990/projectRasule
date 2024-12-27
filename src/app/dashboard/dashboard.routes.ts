@@ -36,6 +36,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'class/:postId',
+    loadComponent: () =>
+      import('./pages/class/class.component').then(
+        ({ ClassComponent }) => ClassComponent
+      ),
+  },
+  {
     path: 'profile',
     loadComponent: () =>
       import('./pages/profile/profile.component').then(

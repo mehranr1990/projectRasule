@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormFieldType, FormModalField } from 'src/app/components/shared/form-creator/form-creator.model';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
@@ -7,7 +7,8 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { ImageModule } from 'primeng/image';
 import { CategoriesService } from 'src/app/core/services/categories.service';
 import { Validators } from '@angular/forms';
-import { CoursesService } from 'src/app/core/services/courses.service';
+import { ClassService } from 'src/app/core/services/class.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-create',
@@ -16,8 +17,16 @@ import { CoursesService } from 'src/app/core/services/courses.service';
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'
 })
-export class CreateComponent {
-  constructor(private coursesService:CoursesService){}
+export class CreateComponent implements OnInit{
+  constructor(private classService:ClassService,private route: ActivatedRoute){}
+  sub:any
+  id:any
+  ngOnInit() {
+    this.sub = this.route.params.subscribe((params) => {
+      this.id = params['postId'];
+      
+    });
+  }
    visible: boolean;
    get imageUploaded(): boolean {
     // return !!this.addCoinFormGroup.value.image;
@@ -57,6 +66,20 @@ export class CreateComponent {
     },
     {
       type: FormFieldType.TEXT,
+      name: 'teacher',
+      label: 'نام مدرس کلاس',
+      value: '',
+      validations: ['required'],
+    },
+    {
+      type: FormFieldType.NUMBER,
+      name: 'capacity',
+      label: 'ظرفیت کلاس',
+      value: '',
+      validations: ['required'],
+    },
+    {
+      type: FormFieldType.TEXT,
       name: 'description',
       label: 'توضیحات درباره دوره',
       value: '',
@@ -65,9 +88,9 @@ export class CreateComponent {
   ];
   
   submitform(form) {
-    this.coursesService.createCourse(form).subscribe({next:(resp)=>{
+    form.course = this.id
+    this.classService.create(form).subscribe({next:(resp)=>{
       this.visible =false
-      
     }})
   }
 }

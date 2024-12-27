@@ -12,6 +12,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { ScrollerModule } from 'primeng/scroller';
+import { SoldierService } from 'src/app/core/services/soldier.service';
 @Component({
   selector: 'app-posts',
   standalone: true,
@@ -39,15 +40,19 @@ export class PostsComponent implements OnInit {
     private _router: Router,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
+    private soldierServicce:SoldierService,
 
     private postservise: PostsService
   ) {}
   ngOnInit() {
-    this.getallpost()
-
+    this.soldierServicce.getAll().subscribe({next:(resp)=>{
+      this.posts = resp
+    }}) 
   }
   editPost(post) {
-    this._router.navigate(['dashboard/posts/update', post.id]);
+    console.log(post);
+    
+    this._router.navigate(['dashboard/posts/update', post._id]);
   }
   deletePost(post) {
     // this.deletepostcomponent.openConfirm(post);

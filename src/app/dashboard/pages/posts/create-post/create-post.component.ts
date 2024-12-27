@@ -91,11 +91,7 @@ export class CreatePostComponent implements OnInit {
     this.headerImgSrc = '';
   }
 
-  resetUploadBodyPic() {
-    this.bodyimageUploaded = false;
-    this.bodyImg = '';
-    this.bodyImgSrc = '';
-  }
+  
   public formOptions: FormModalOptions = {
     doubleCheck: true,
     editable: true,
@@ -104,40 +100,106 @@ export class CreatePostComponent implements OnInit {
   formFields: FormModalField[] = [
     {
       type: FormFieldType.TEXT,
-      name: 'title',
+      name: 'firstName',
       label: 'نام',
       validations: ['required'],
       value: '',
     },
     {
       type: FormFieldType.TEXT,
-      name: 'approximateTime',
+      name: 'lastName',
       label: 'نام خانوادگی',
       validations: ['required'],
       value: '',
     },
     {
       type: FormFieldType.TEXT,
-      name: 'description',
+      name: 'fatherName',
+      label: 'نام پدر',
+      validations: ['required'],
+      value: '',
+    },
+    {
+      type: FormFieldType.NUMBER,
+      name: 'personalNumber',
       label: 'شماره پرسنلی',
       validations: ['required'],
       value: '',
     },
+    {
+      type: FormFieldType.DATE,
+      name: 'birthDate',
+      label: 'تاریخ تولد',
+      validations: ['required'],
+      value: '',
+    },
+    {
+      type: FormFieldType.TEXT,
+      name: 'birthPlace',
+      label: 'محل تولد',
+      validations: ['required'],
+      value: '',
+    },
+   
 
     {
       type: FormFieldType.TEXT,
-      name: 'postName',
-      label: 'کد ملی',
+      name: 'maritalStatus',
+      label: 'وضعیت تاهل',
       validations: ['required'],
       value: '',
     },
     {
       type: FormFieldType.TEXT,
-      name: 'postName',
-      label: 'رده خدمتی',
+      name: 'address',
+      label: 'آدرس محل سکونت',
       validations: ['required'],
       value: '',
     },
+    {
+      type: FormFieldType.NUMBER,
+      name: 'phoneNumber',
+      label: 'شماره تماس',
+      validations: ['required'],
+      value: '',
+    },
+    {
+      type: FormFieldType.NUMBER,
+      name: 'emergencyContact',
+      label: 'شماره تماس اضطراری',
+      validations: ['required'],
+      value: '',
+    },
+    {
+      type: FormFieldType.TEXT,
+      name: 'rank',
+      label: 'درجه نظامی',
+      validations: ['required'],
+      value: '',
+    },
+    {
+      type: FormFieldType.TEXT,
+      name: 'service',
+      label: 'واحد خدمتی',
+      validations: ['required'],
+      value: '',
+    },
+    {
+      type: FormFieldType.DATE,
+      name: 'conscriptionStartDate',
+      label: 'تاریخ شروع خدمت',
+      validations: ['required'],
+      value: '',
+    },
+    
+    {
+      type: FormFieldType.DATE,
+      name: 'conscriptionEndDate',
+      label: 'تاریخ پایان خدمت',
+      validations: ['required'],
+      value: '',
+    },
+    
     {
       type: FormFieldType.EDITOR,
       name: 'body',
@@ -148,27 +210,18 @@ export class CreatePostComponent implements OnInit {
   ];
 
   submitForm(form) {
-    const username = this.userStore.info.username
     
-    const usernameWithoutQuotes = username!.replace(/"/g, '');
-
-    form.userName = usernameWithoutQuotes;
+    console.log(form);
+    
+    
     form.headerImage = this.headerImgSrc;
-    form.bodyImage = this.bodyImgSrc;
     form.categoriesName = this.selectedCategories.map((resp) => resp.name);
-    form.tags = this.selectedTags.map((resp) => resp.name);
     this.postservice.create(form).subscribe({
       next: (resp) => {
-        this.resetUploadBodyPic();
         this.resetUploadHeaderPic();
-        this.selectedTags = [];
         this.selectedCategories = [];
         this.formValues = {
-          title: '',
-          approximateTime: '',
-          description: '',
-          postName: '',
-          body: '',
+        
         };
       },
     });
@@ -187,15 +240,5 @@ export class CreatePostComponent implements OnInit {
     });
   }
 
-  bodyUploadHandler(resp) {
-    const formData = new FormData();
-    formData.append('file', resp.files[0]);
-    this.imageApi.upload(formData).subscribe({
-      next: (resp) => {
-        this.bodyimageUploaded = true;
-        this.bodyImgSrc = resp.body;
-        this.bodyImg = `${environment.apiUrl}/Image/Download/${resp.body}`;
-      },
-    });
-  }
+ 
 }

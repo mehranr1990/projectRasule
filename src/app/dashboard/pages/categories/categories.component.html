@@ -25,18 +25,18 @@
     </ng-template>
     <ng-template pTemplate="body" let-Category>
       <tr>
-        <td>{{ Category.id }}</td>
         <td>{{ Category.title }}</td>
-        <td>{{ Category.slug }}</td>
+        <td>{{ Category.startDate }}</td>
+        <td>{{ Category.endDate }}</td>
         <td>
-          <app-edit [category]="Category"></app-edit>
+          <!-- <app-edit [category]="Category"></app-edit> -->
           <p-button
           styleClass="bg-rose-500/25 w-10 h-10 hover:bg-rose-500/75 mx-2"
-          icon="pi pi-trash"
+          icon="pi pi-save"
             severity="danger"
             [rounded]="true"
             [outlined]="true"
-            (onClick)="deleteCategory($event,Category)"
+            (onClick)="archiveCourses(Category)"
           />
           <p-button
           styleClass="bg-green-500/25 w-10 h-10 hover:bg-green-500/75"

@@ -14,12 +14,17 @@ export class AuthService {
     private readonly userStore: UserStore
   ) {}
 
-  login(userName: string, password: string) {
-    return this.api.post('/User/login', { userName, password }).pipe(
+  login(username: string, password: string) {
+    return this.api.post('/auth/login', { username, password }).pipe(
       
       map(async (resp) => {
+        console.log(resp);
+        
+    localStorage.setItem('token',resp.token)
+        
         this.userStore.info = await lastValueFrom(
-          this.claimUserProfile(resp.token, userName)
+          this.claimUserProfile(resp.token, username)
+          
         );
       
         return resp;
@@ -42,6 +47,8 @@ export class AuthService {
   }
 
   claimUserProfile(token: string, username: string): Observable<User> {
+    
+    
     const headers: HttpHeaders = new HttpHeaders({
       Authorization: 'Bearer ' + token,
     });

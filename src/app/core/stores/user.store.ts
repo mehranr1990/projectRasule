@@ -54,7 +54,7 @@ export class UserStore {
     };
     this._isAuthenticated = false;
     //localStorage.removeItem('accessToken');
-    localStorage.clear();
+    // localStorage.clear();
   }
 
 

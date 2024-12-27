@@ -8,6 +8,8 @@ import { CardModule } from 'primeng/card';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { CoursesService } from 'src/app/core/services/courses.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-categories',
@@ -27,23 +29,29 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 })
 export class CategoriesComponent implements OnInit {
   constructor(
-    private categoryservise: CategoriesService,
+    private coursesService: CoursesService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private _router: Router,
   ) {}
-  ngOnInit() {
-    this.categoryservise.getAll().subscribe({
-      next: (resp) => {
-        this.categories = resp;
-      },
-    });
-  }
   categories: any = [];
+  ngOnInit() {
+   this.getActiveCourses()
+  }
+getActiveCourses(){
+  this.coursesService.getAllActiveCourses().subscribe({
+    next: (resp) => {
+      this.categories = resp;
+    },
+  });
+}
+  ViewCategory(Category) {
+    this._router.navigate(['dashboard/class/', Category._id]);
 
-  deleteCategory(event, Category) {
-    this.confirmationService.confirm({
-      target: event.target as EventTarget,
-      message: 'آیا از حذف این آیتم مطمئن هستید؟',
+  }
+  archiveCourses(Category){
+      this.confirmationService.confirm({
+      message: 'آیا از ارشیو کردن این آیتم مطمئن هستید؟',
       header: 'اخطار',
       icon: 'fa-regular fa-circle-exclamation text-amber-500',
       acceptIcon: 'none',
@@ -53,11 +61,13 @@ export class CategoriesComponent implements OnInit {
       rejectLabel: 'رد',
       rejectButtonStyleClass: 'text-slate-500 pe-5',
       accept: () => {
-        this.categoryservise.delete(Category.id).subscribe({
+        this.coursesService.archiveCourse(Category._id).subscribe({
           next: (resp) => {
+
+            this.getActiveCourses() 
             this.messageService.add({
               severity: 'info',
-              summary: 'ایتم با موفقیت حذف گردید',
+              summary: 'ایتم با موفقیت ارشیو گردید',
               detail: resp,
               life: 3000,
             });
@@ -73,14 +83,10 @@ export class CategoriesComponent implements OnInit {
         // });
       },
     });
-  }
-  ViewCategory(Category) {
-    if (Category.categoryEntities.length > 0) {
-      this.categories = Category.categoryEntities;
-    }
+   
   }
   return() {
-    this.categoryservise.getAll().subscribe({
+    this.coursesService.getAllCourses().subscribe({
       next: (resp) => {
         this.categories = resp;
       },
