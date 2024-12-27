@@ -3,6 +3,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { ImageModule } from 'primeng/image';
 import { FormCreatorComponent } from 'src/app/components/shared/form-creator/form-creator.component';
 import {
+  FormFieldSelectData,
   FormFieldType,
   FormModalField,
   FormModalOptions,
@@ -49,12 +50,14 @@ export class UpdatePostComponent implements OnInit {
   defaultValue: boolean = false;
   private sub: Subscription;
   id: string;
-
+  maritalType: FormFieldSelectData[] = [
+    {label: 'مجرد', value: 'single', icon: ''},
+    {label: 'متاهل', value: 'married', icon: ''},
+    {label: 'طلاق گرفته', value: 'devorced', icon: ''},
+    {label: 'همسر فوت شده', value: 'widowed', icon: ''},
+  ]
   constructor(
     private imageApi: ImageService,
-    private categoryservice: CategoriesService,
-    private tagservice: TagsService,
-    private postservice: PostsService,
     private soldierService:SoldierService,
     private route: ActivatedRoute,
     private _router: Router
@@ -209,11 +212,13 @@ export class UpdatePostComponent implements OnInit {
       value: '',
     },
 
+    
     {
-      type: FormFieldType.TEXT,
+      type: FormFieldType.SELECT,
       name: 'maritalStatus',
       label: 'وضعیت تاهل',
       validations: ['required'],
+      extraData: this.maritalType,
       value: '',
     },
     {
@@ -277,16 +282,17 @@ export class UpdatePostComponent implements OnInit {
   ];
   submitForm(form) {
     form.id = this.id;
-    form.headerImage = this.headerImgSrc;
-    form.bodyImage = this.bodyImgSrc;
-    form.categoriesName = this.selectedCategories.map((resp) => resp.name);
-    form.tags = this.selectedTags.map((resp) => resp.name);
-    delete form.postName;
-    this.postservice.update(form).subscribe({
-      next: (resp) => {
-        this._router.navigate(['dashboard/posts']);
-      },
-    });
+    
+    // form.headerImage = this.headerImgSrc;
+    // form.bodyImage = this.bodyImgSrc;
+    // form.categoriesName = this.selectedCategories.map((resp) => resp.name);
+    // form.tags = this.selectedTags.map((resp) => resp.name);
+    // delete form.postName;
+    // this.soldierService.update(form).subscribe({
+    //   next: (resp) => {
+    //     this._router.navigate(['dashboard/posts']);
+    //   },
+    // });
   }
   headerUploadHandler(resp) {
     const formData = new FormData();

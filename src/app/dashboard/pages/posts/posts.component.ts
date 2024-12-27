@@ -70,7 +70,6 @@ export class PostsComponent implements OnInit {
         this.postservise.delete(post.id).subscribe({
           next: (resp) => {
 
-            this.getallpost()
             this.messageService.add({
               severity: 'info',
               summary: 'مقاله با موفقیت حذف شد',
@@ -99,11 +98,5 @@ export class PostsComponent implements OnInit {
   viewcomments(post){
     this._router.navigate(['dashboard/comments/', post.id]);
   }
-  getallpost(){
-    this.postservice.getAll(200, 1).subscribe({
-      next: (posts) => {
-        this.posts = posts;
-      },
-    });
-  }
+ 
 }

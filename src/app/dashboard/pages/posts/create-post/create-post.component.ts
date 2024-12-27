@@ -3,6 +3,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { ImageModule } from 'primeng/image';
 import { FormCreatorComponent } from 'src/app/components/shared/form-creator/form-creator.component';
 import {
+  FormFieldSelectData,
   FormFieldType,
   FormModalField,
   FormModalOptions,
@@ -17,6 +18,7 @@ import { PostsService } from 'src/app/core/services/posts.service';
 import { UserStore } from 'src/app/core/stores/user.store';
 import { CardModule } from 'primeng/card';
 import { environment } from 'src/environments/environment';
+import { SoldierService } from 'src/app/core/services/soldier.service';
 
 @Component({
   selector: 'app-create-post',
@@ -44,11 +46,17 @@ export class CreatePostComponent implements OnInit {
   headerImg: string;
   bodyimageUploaded: boolean = false;
   headerimageUploaded: boolean = false;
+  maritalType: FormFieldSelectData[] = [
+    {label: 'مجرد', value: 'single', icon: ''},
+    {label: 'متاهل', value: 'married', icon: ''},
+    {label: 'طلاق گرفته', value: 'devorced', icon: ''},
+    {label: 'همسر فوت شده', value: 'widowed', icon: ''},
+  ]
   constructor(
     private imageApi: ImageService,
     private categoryservice: CategoriesService,
     private tagservice: TagsService,
-    private postservice: PostsService,
+    private soldierService: SoldierService,
     private userStore:UserStore
   ) {}
   ngOnInit() {
@@ -143,10 +151,11 @@ export class CreatePostComponent implements OnInit {
    
 
     {
-      type: FormFieldType.TEXT,
+      type: FormFieldType.SELECT,
       name: 'maritalStatus',
       label: 'وضعیت تاهل',
       validations: ['required'],
+      extraData: this.maritalType,
       value: '',
     },
     {
@@ -214,9 +223,9 @@ export class CreatePostComponent implements OnInit {
     console.log(form);
     
     
-    form.headerImage = this.headerImgSrc;
-    form.categoriesName = this.selectedCategories.map((resp) => resp.name);
-    this.postservice.create(form).subscribe({
+    // form.headerImage = this.headerImgSrc;
+    // form.categoriesName = this.selectedCategories.map((resp) => resp.name);  
+    this.soldierService.create(form).subscribe({
       next: (resp) => {
         this.resetUploadHeaderPic();
         this.selectedCategories = [];
