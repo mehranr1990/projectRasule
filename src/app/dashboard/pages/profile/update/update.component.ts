@@ -44,7 +44,6 @@ export class UpdateComponent implements OnInit {
   ngOnInit() {
     this.id = this.profile.id;
     this.formValues = this.profile;
-    this.imageUploaded = true;
 
     this.imageSrc = this.profile.imageName;
     this.showmodal = true;
@@ -55,12 +54,6 @@ export class UpdateComponent implements OnInit {
   showDialog() {
     this.visible = !this.visible;
     this.formOptions.loading = false;
-  }
-  imageUploaded: boolean = false;
-  resetUploadimageSrc() {
-    this.imageUploaded = false;
-    this.imageSrc = '';
-    this.imgSrc = '';
   }
   public formOptions: FormModalOptions = {
     doubleCheck: true,
@@ -146,16 +139,5 @@ export class UpdateComponent implements OnInit {
       },
     });
   }
-  uploadHandler(resp) {
-    const formData = new FormData();
-    formData.append('file', resp.files[0]);
-
-    this.imageApi.upload(formData).subscribe({
-      next: (resp) => {
-        this.imageUploaded = true;
-        this.imgSrc = resp.body;
-        this.imageSrc = `${environment.apiUrl}/Image/Download/${resp.body}`;
-      },
-    });
-  }
+ 
 }

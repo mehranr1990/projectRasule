@@ -1,7 +1,6 @@
 <div class="grid grid-cols-12 gap-10">
   <div class="col-span-12 lg:col-span-12 flex justify-between">
     <label class="text-5xl" [appCasl]="'test1'" >وقت بخیر</label>
-    <p-button label="ایجاد پست" class="p-button-style" />
   </div>
   <div class="col-span-12 lg:col-span-8">
     <p-card
@@ -15,8 +14,8 @@
         >
           <div class="flex justify-around p-4">
             <div>
-              <p class="">تعداد نظرات</p>
-              <p>37 نظر</p>
+              <p class="">تعداد سربازها</p>
+              <p>{{dataamar.soldiersCount}} سرباز</p>
             </div>
             <i class="border-r-2 pr-[15%] fa-regular fa-grid-2 text-5xl"></i>
           </div>
@@ -27,8 +26,8 @@
         >
           <div class="flex justify-around p-4">
             <div>
-              <p class="">تعداد پست ها</p>
-              <p>128 پست</p>
+              <p class="">تعداد دوره ها</p>
+              <p>{{dataamar.coursesCount}} دوره</p>
             </div>
             <i class="border-r-2 pr-[15%] fa-regular fa-grid-2 text-5xl"></i>
           </div>
@@ -39,8 +38,8 @@
         >
           <div class="flex justify-around p-4">
             <div>
-              <p class="">تعداد دسته بندی</p>
-              <p>49 دسته</p>
+              <p class="">تعداد کلاس ها</p>
+              <p>{{dataamar.classesCount}} کلاس</p>
             </div>
             <i class="border-r-2 pr-[15%] fa-regular fa-grid-2 text-5xl"></i>
           </div>
@@ -64,9 +63,9 @@
               >
                 <i class="fa-regular fa-newspaper"></i>
               </span>
-              <span class="mr-2 font-medium"> نعداد پست ها </span>
+              <span class="mr-2 font-medium"> نعداد سربازها </span>
             </p-chip>
-            <p>128 پست</p>
+            <p>{{dataamar.soldiersCount}} سرباز</p>
           </div>
 
           <div class="flex justify-around my-2">
@@ -76,9 +75,9 @@
               >
                 <i class="fa-regular fa-grid-2"></i>
               </span>
-              <span class="mr-2 font-medium"> تعداد دسته ها </span>
+              <span class="mr-2 font-medium"> تعداد ثبت نام ها </span>
             </p-chip>
-            <p>49 دسته</p>
+            <p>{{dataamar.enrollmentsCount}} ثبت نام</p>
           </div>
 
           <div class="flex justify-around">
@@ -88,9 +87,9 @@
               >
                 <i class="fa-regular fa-code"></i>
               </span>
-              <span class="mr-2 font-medium"> تعداد نظر ها </span>
+              <span class="mr-2 font-medium"> تعداد کلاس ها </span>
             </p-chip>
-            <p>37 نظر</p>
+            <p>{{dataamar.classesCount}} کلاس</p>
           </div>
         </div>
         <div class="col-span-12 lg:col-span-4 flex justify-center">

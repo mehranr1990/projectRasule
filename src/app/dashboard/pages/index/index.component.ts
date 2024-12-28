@@ -29,6 +29,7 @@ import {
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { CommonModule } from '@angular/common';
 import { CaslDirective } from 'src/app/core/directives/casl.directive';
+import { TagsService } from 'src/app/core/services/tags.service';
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
   chart: ApexChart;
@@ -63,54 +64,35 @@ export class IndexComponent implements OnInit {
   public chartOptions: Partial<ChartOptions>|any;
   responsiveOptions: any[];
   posts: any;
-  constructor(private postsService: PostsService) {
-    this.chartOptions = {
-      series: [20, 10, 3],
-      chart: {
-        width: 380,
-        type: "pie"
-      },
-      labels: ["پست ها", "دسته ها", "نظرات"],
-      responsive: [
-        {
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 200
-            },
-            legend: {
-              position: "bottom"
+  constructor(private tagsService: TagsService) {
+    
+  }
+  dataamar:any
+  ngOnInit() {
+    this.tagsService.getAll().subscribe({next:(resp)=>{
+      this.dataamar = resp
+      this.chartOptions = {
+        series: [this.dataamar.soldiersCount,this.dataamar.classesCount,this.dataamar.enrollmentsCount],
+        chart: {
+          width: 380,
+          type: "pie"
+        },
+        labels: ["ثبت نام ها", "کلاس ها", "سربازها"],
+        responsive: [
+          {
+            breakpoint: 480,
+            options: {
+              chart: {
+                width: 200
+              },
+              legend: {
+                position: "bottom"
+              }
             }
           }
-        }
-      ]
-    };
-  }
-  // constructor(private confirmationService: ConfirmationService, private messageService: MessageService){}
-  ngOnInit() {
-    this.postsService.getAll(4, 1).subscribe({
-      next: (resp) => {
-        this.posts = resp;
-        console.log(this.posts);
-      },
-    });
-    this.responsiveOptions = [
-      {
-        breakpoint: '1024px',
-        numVisible: 3,
-        numScroll: 3,
-      },
-      {
-        breakpoint: '768px',
-        numVisible: 2,
-        numScroll: 2,
-      },
-      {
-        breakpoint: '560px',
-        numVisible: 1,
-        numScroll: 1,
-      },
-    ];
+        ]
+      };
+    }})
   }
   // getSeverity(status: string) {
   //   switch (status) {

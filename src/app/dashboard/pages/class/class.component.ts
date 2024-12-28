@@ -57,6 +57,11 @@ export class ClassComponent implements OnInit {
     { label: 'معاف', value: 'excused', icon: '' },
     { label: 'دیگر', value: 'other', icon: '' },
   ];
+  gradeType: FormFieldSelectData[] = [
+    { label: 'قبول', value: 'pass', icon: '' },
+    { label: 'مردود', value: 'fail', icon: '' },
+    { label: 'نامشخص', value: 'none', icon: '' },
+  ];
   classes: any;
   private sub;
   id: string;
@@ -232,6 +237,10 @@ export class ClassComponent implements OnInit {
       },
     });
   }
+
+
+
+
   public formFeilds1: FormModalField[] = [
     {
       type: FormFieldType.SELECT,
@@ -286,4 +295,73 @@ export class ClassComponent implements OnInit {
     this.visible2 = false
     this.enrolments1 = enrolments
   }
+
+
+  setGrade(enrolments){
+    this.visiblegrade = true
+    this.visible2 = false
+    this.enrolments1 = enrolments
+  }
+  
+
+
+
+
+  public formFeildsgrade: FormModalField[] = [
+    {
+      type: FormFieldType.TEXT,
+      name: 'score',
+      label: 'نمره',
+      value: '',
+      validations: ['required'],
+    },
+    {
+      type: FormFieldType.SELECT,
+      name: 'passOrFail',
+      label: 'وضعیت قبولی یا مردودی',
+      extraData: this.gradeType,
+      value: '',
+      validations: ['required'],
+    },
+    // {
+    //   type: FormFieldType.NUMBER,
+    //   name: 'capacity',
+    //   label: 'ظرفیت کلاس',
+    //   value: '',
+    //   validations: ['required'],
+    // },
+    {
+      type: FormFieldType.TEXT,
+      name: 'note',
+      label: 'توضیحات درباره نمره',
+      value: '',
+      validations: ['required'],
+    },
+  ];
+  submitformgrade(form) {
+    console.log(form);
+    
+    const body = {
+      enrollmentId: this.enrolments1._id,
+      score: form.score,
+      passOrFail: form.passOrFail,
+      note:form.note
+    };
+    this.soldierServices.setgrade(body).subscribe({
+      next: () => {
+        this.messageService.add({
+          severity: 'info',
+          summary: 'تایید',
+          detail: `نمره ${form.score} برای سرباز ${
+            this.enrolments1.soldier.firstName + ' ' + this.enrolments1.soldier.lastName
+          } ثبت شد`,
+          life: 3000,
+        });
+      },
+    });
+
+  }
+  visiblegrade:boolean=false
+  grade:any
+  
 }

@@ -47,6 +47,17 @@ export class SoldierService {
     return this.api.post(`/soldiers`, body,{ headers }).pipe(tap((resp)=>{  
     }))
   }
+  update(id,body){
+    const token = localStorage.getItem('token')
+    console.log(token);
+    
+    const headers: HttpHeaders = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+    });
+    
+    return this.api.put(`/soldiers/${id}`, body,{ headers }).pipe(tap((resp)=>{  
+    }))
+  }
 
   getbycourse(id){
     const token = localStorage.getItem('token')
@@ -60,5 +71,15 @@ export class SoldierService {
     }))
   }
 
-
+  setgrade(body){
+    const token = localStorage.getItem('token')
+    console.log(token);
+    
+    const headers: HttpHeaders = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+    });
+    
+    return this.api.post(`/grades`, body,{ headers }).pipe(tap((resp)=>{  
+    }))
+  }
 }

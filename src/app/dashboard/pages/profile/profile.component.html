@@ -1,95 +1,91 @@
-<div class="grid grid-cols-12 gap-4">
-  <div class="col-span-4">
-    <p-image
-      class="flex justify-center p-20"
-      imageClass="gerd"
-      [src]="profile.imageName"
-      [preview]="true"
-      alt="Image"
-      width="100%"
-      (onImageError)="setdefaultimage($event)"
-    >
-    </p-image>
-  </div>
-  <div class="col-span-8 p-10 content-center">
-    <p-card
-      styleClass="card-style rounded-xl bg-[--content-color] text-slate-100 border-none shadow-none"
-    >
-      <div class="mb-6">
-        <label class="flex justify-center text-5xl"> {{ profile.name }}</label>
-      </div>
-      <div>
+<p-card styleClass="card-style rounded-xl bg-[--content-color] text-slate-100 border-none shadow-none">
+  <p-table
+    [value]="users"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    styleClass="tb-style"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex items-center justify-between">
+        <!-- <p class="mb-0 text-slate-100">مشتری</p> -->
+
+
         <div>
-          <div class="mb-2">
-            <label class="text-xl"> نام کاربری : </label>
-
-            <label>{{ profile.userName }} </label>
-          </div>
-          <div class="mb-2">
-            <label class="text-xl"> ایمیل : </label>
-            <label>{{ profile.email }} </label>
-          </div>
-        </div>
-        <div class="mb-2">
-          <label class="text-xl"> وضعیت : </label>
-          <label>{{ "فعال" }} </label>
-        </div>
-        <div class="mb-4">
-          <label class="text-xl"> شماره همراه : </label>
-          <label>{{ profile.phoneNumber }} </label>
+          <app-create></app-create>
         </div>
       </div>
-      <div class="flex justify-end ml-8">
-        <div class="flex ml">
-          <i
-            class="pi pi-instagram ml-4"
-            style="font-size: 1.5rem"
-            [pTooltip]="profile.instagram"
-            tooltipPosition="top"
-          ></i>
-        </div>
-        <div class="flex">
-          <i
-            class="pi pi-telegram ml-4"
-            style="font-size: 1.5rem"
-            [pTooltip]="profile.telegram"
-            tooltipPosition="top"
-          ></i>
-        </div>
-        <div class="flex">
-          <i
-            class="pi pi-linkedin ml-4"
-            style="font-size: 1.5rem"
-            [pTooltip]="profile.linkdin"
-            tooltipPosition="top"
-          ></i>
-        </div>
-        <div class="flex">
-          <i
-            class="pi pi-twitter ml-4"
-            style="font-size: 1.5rem"
-            [pTooltip]="profile.twitter"
-            tooltipPosition="top"
-          ></i>
-        </div>
-      </div>
-    </p-card>
-  </div>
-</div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th>نام کاربری</th>
+        <th>نقش</th>
+        <th>وضعیت کاربر</th>
+        <th>تغییرات</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-Category>
+      <tr>
+        <td>{{ Category.username }}</td>
+        <td>{{ Category.role }}</td>
+        <td>{{ Category.isActive?'فعال':'غیر فعال' }}</td>
+        <td>
+          <p-button
+            styleClass="bg-sky-500/25 w-10 h-10 hover:bg-sky-500/75"
+            icon="pi pi-pencil"
+            severity="danger"
+            [rounded]="true"
+            [outlined]="true"
+            (onClick)="editClass(Category)"
+          />
+          <!-- <app-edit [category]="Category"></app-edit> -->
+          <p-button
+          styleClass="bg-green-500/25 w-10 h-10 hover:bg-green-500/75 mx-2"
+          icon="pi pi-save"
+            severity="primary"
+            [rounded]="true"
+            [outlined]="true"
+            (onClick)="archiveCourses(Category)"
+          />
+          <!-- <p-button
+          styleClass="bg-green-500/25 w-10 h-10 hover:bg-green-500/75"
+          icon="pi pi-eye"
+          severity="primary"
+          [rounded]="true"
+          [outlined]="true"
+          (onClick)="ViewCategory(Category)"
+          /> -->
+          <p-button
+          styleClass="bg-rose-500/25 w-10 h-10 hover:bg-rose-500/75 mx-2"
+          icon="pi pi-trash"
+            severity="danger"
+            [rounded]="true"
+            [outlined]="true"
+            (onClick)="delete(Category)"
+          />
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>
+<br />
 
-<div class="col-12 flex-col justify-center">
-  <br />
-</div>
-<hr />
-<div class="grid grid-cols-12 gap-4">
-  <div class="col-start-2 col-span-10">
-    <label class="text-xl"> درباره من : </label>
-    <label>{{ profile.description }} </label>
-  </div>
 
-  <div class="col-start-6 col-span-2">
-    <div class="flex justify-center p-button-style">
-      <app-update [(profile)]="profile"></app-update>
-    </div>
-  </div>
-</div>
+<p-toast/>
+<p-confirmDialog class="style-confirm"/>
+
+
+
+<p-dialog
+  header="تغییر کلاس"
+  [modal]="true"
+  [(visible)]="visible"
+  [style]="{ width: '35rem' }"
+>
+  @if(defaultValue){
+  <form-creator
+    [fields]="formFeilds"
+    (submitEditForm)="submitform($event)"
+    [options]="formOptions"
+    [values]="formValues"
+  />}
+</p-dialog>
+

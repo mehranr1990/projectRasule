@@ -60,7 +60,7 @@ export class UpdatePostComponent implements OnInit {
     private imageApi: ImageService,
     private soldierService:SoldierService,
     private route: ActivatedRoute,
-    private _router: Router
+    private router: Router
   ) {}
   ngOnInit() {
     this.sub = this.route.params.subscribe((params) => {
@@ -281,7 +281,10 @@ export class UpdatePostComponent implements OnInit {
     },
   ];
   submitForm(form) {
-    form.id = this.id;
+    this.soldierService.update(this.id,form).subscribe({next:()=>{
+      
+      this.router.navigate(['/dashboard/posts']);
+    }})
     
     // form.headerImage = this.headerImgSrc;
     // form.bodyImage = this.bodyImgSrc;

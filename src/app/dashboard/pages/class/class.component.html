@@ -141,7 +141,7 @@
   header="انتخاب سرباز"
   [modal]="true"
   [(visible)]="visible2"
-  [style]="{ width: '55rem' }"
+  [style]="{ width: '75rem' }"
 >
   <p-table
     [value]="enrollmentsinclass"
@@ -162,6 +162,7 @@
         <th style="min-width: 15%">شماره پرسنلی</th>
         <th style="min-width: 200px">حضور و غیاب</th>
         <th style="min-width: 200px">تغییرات</th>
+        <th style="min-width: 200px">ثبت نمره</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-enrollments>
@@ -216,6 +217,17 @@
             (onClick)="removefromclass(enrollments)"
           />
         </td>
+        <td class="">
+          <p-button
+            styleClass="bg-rose-500/25 w-10 h-10 hover:bg-rose-500/75"
+            size="small"
+            icon="pi pi-times"
+            [rounded]="true"
+            [outlined]="true"
+            severity="success"
+            (onClick)="setGrade(enrollments)"
+          />
+        </td>
       </tr>
     </ng-template>
   </p-table>
@@ -230,5 +242,17 @@
   <form-creator
     [fields]="formFeilds1"
     (submitForm)="submitform1($event)"
+  />}
+</p-dialog>
+<p-dialog
+  header="ثبت نمره"
+  [modal]="true"
+  [(visible)]="visiblegrade"
+  [style]="{ width: '55rem' }"
+>
+  @if(visiblegrade){
+  <form-creator
+    [fields]="formFeildsgrade"
+    (submitForm)="submitformgrade($event)"
   />}
 </p-dialog>
