@@ -10,6 +10,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { ScrollerModule } from 'primeng/scroller';
 import { SoldierService } from 'src/app/core/services/soldier.service';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-posts',
   standalone: true,
@@ -20,7 +21,9 @@ import { SoldierService } from 'src/app/core/services/soldier.service';
     CardModule,
     ConfirmDialogModule,
     ToastModule,
-    ScrollerModule
+    ScrollerModule,
+    TableModule, 
+        FormsModule, 
   ],
   providers: [ConfirmationService, MessageService],
   templateUrl: './posts.component.html',
@@ -44,10 +47,17 @@ export class PostsComponent implements OnInit {
     private soldierServicce:SoldierService,
 
   ) {}
+  cols!: any[];
   ngOnInit() {
     this.soldierServicce.getAll().subscribe({next:(resp)=>{
       this.posts = resp
     }}) 
+    this.cols = [
+      { field: 'firstName', header: 'firstName', },
+      { field: 'lastName', header: 'lastName' },
+      { field: 'personalNumber', header: 'personalNumber' },
+      { field: 'service', header: 'service' }
+  ];
   }
   editPost(post) {
     console.log(post);

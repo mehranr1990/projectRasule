@@ -2,32 +2,40 @@
   styleClass="card-style rounded-xl bg-[--content-color] text-slate-100 border-none shadow-none"
 >
   <p-table
-  #dt1
+    #dt1
     [value]="posts"
     [paginator]="true"
     [rows]="10"
     [rowsPerPageOptions]="[10, 25, 100]"
     styleClass="tb-style"
     responsiveLayout="stack"
+    [columns]="cols"
     [globalFilterFields]="[
       'firstName',
       'lastName',
       'personalNumber',
-      'service',
+      'service'
     ]"
   >
     <ng-template pTemplate="caption">
       <div class="flex items-center justify-between">
         <!-- <p class="mb-0 text-slate-100">مشتری</p> -->
-        <input class="pl-10 pr-4 py-2 border rounded-lg" 
-        pInputText
-        type="text"
-        (input)="filtermethod2($event)"
-        placeholder="Global Search"
-      />
+        <div class="text-end pb-4">
+          <p-button
+            icon="pi pi-external-link"
+            label="Export"
+            (click)="dt1.exportCSV()"
+          />
+        </div>
+        <input
+          class="pl-10 pr-4 py-2 border rounded-lg"
+          pInputText
+          type="text"
+          (input)="filtermethod2($event)"
+          placeholder="Global Search"
+        />
         <div class="mt-2">
           <p-button
-          
             label="افزودن سرباز"
             class="p-button-style"
             (onClick)="createNewPost()"
@@ -46,14 +54,15 @@
     <ng-template pTemplate="body" let-post>
       <tr>
         <td>
-          <span class="p-column-title">نام و نام خانوادگی : </span>{{ post.firstName +' '+post.lastName }}
+          <span class="p-column-title">نام و نام خانوادگی : </span
+          >{{ post.firstName + " " + post.lastName }}
         </td>
         <td>
-          <span class="p-column-title">شماره پرسنلی : </span>{{ post.personalNumber }}
+          <span class="p-column-title">شماره پرسنلی : </span
+          >{{ post.personalNumber }}
         </td>
         <td>
-          <span class="p-column-title">محل خدمت : </span
-          >{{ post.service }}
+          <span class="p-column-title">محل خدمت : </span> {{ post.service }}
         </td>
         <td class="justify-end">
           <p-button
@@ -65,9 +74,9 @@
             severity="success"
             (onClick)="editPost(post)"
           />
-         
+
           <p-button
-          styleClass="bg-green-500/25 w-10 h-10 hover:bg-green-500/75"
+            styleClass="bg-green-500/25 w-10 h-10 hover:bg-green-500/75"
             icon="pi pi-eye"
             severity="primary"
             [rounded]="true"
@@ -75,7 +84,7 @@
             (onClick)="viewPost(post)"
           />
           <p-button
-          styleClass="bg-cyan-500/25 w-10 h-10 hover:bg-cyan-500/75 mr-2"
+            styleClass="bg-cyan-500/25 w-10 h-10 hover:bg-cyan-500/75 mr-2"
             icon="pi pi-comment"
             severity="primary"
             [rounded]="true"
