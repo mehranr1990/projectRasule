@@ -5,13 +5,15 @@ import { DialogComponent } from 'src/app/components/dialog/dialog.component';
 import { CardModule } from 'primeng/card';
 import { Ipost } from 'src/app/core/models/post';
 import { Router } from '@angular/router';
+import { DeleteComponent } from '../posts/delete/delete.component';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { ScrollerModule } from 'primeng/scroller';
 import { SoldierService } from 'src/app/core/services/soldier.service';
+import { ReportsService } from 'src/app/core/services/reports.service';
 @Component({
-  selector: 'app-posts',
+  selector: 'app-reports',
   standalone: true,
   imports: [
     TableModule,
@@ -23,12 +25,10 @@ import { SoldierService } from 'src/app/core/services/soldier.service';
     ScrollerModule
   ],
   providers: [ConfirmationService, MessageService],
-  templateUrl: './posts.component.html',
-  styleUrl: './posts.component.scss',
+  templateUrl: './reports.component.html',
+  styleUrl: './reports.component.scss'
 })
-export class PostsComponent implements OnInit {
-  // @ViewChild('deletecomponent', { static: true })
-  // deletepostcomponent: DeleteComponent;
+export class ReportsComponent {
   @ViewChild('dt1') myDiv: any;
   filtermethod2(event) {
     console.log(event.target.value);
@@ -36,17 +36,17 @@ export class PostsComponent implements OnInit {
     this.myDiv.filterGlobal(event.target.value, 'contains')
   }
 
-  posts: any = [];
+  courses: any = [];
   constructor(
     private _router: Router,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private soldierServicce:SoldierService,
+    private reportService:ReportsService,
 
   ) {}
   ngOnInit() {
-    this.soldierServicce.getAll().subscribe({next:(resp)=>{
-      this.posts = resp
+    this.reportService.getAllCourses().subscribe({next:(resp)=>{
+      this.courses = resp
     }}) 
   }
   editPost(post) {
@@ -54,8 +54,7 @@ export class PostsComponent implements OnInit {
     
     this._router.navigate(['dashboard/posts/update', post._id]);
   }
-  
-  
+ 
   viewPost(post: Ipost) {
     window.open(`https://blog.coinkade.com/${post.postName}`, '_blank');
   }
@@ -65,5 +64,4 @@ export class PostsComponent implements OnInit {
   viewcomments(post){
     this._router.navigate(['dashboard/comments/', post.id]);
   }
- 
 }

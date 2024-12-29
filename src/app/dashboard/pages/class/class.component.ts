@@ -20,6 +20,7 @@ import {
   FormModalOptions,
 } from 'src/app/components/shared/form-creator/form-creator.model';
 import { SoldierService } from 'src/app/core/services/soldier.service';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-class',
   standalone: true,
@@ -33,12 +34,22 @@ import { SoldierService } from 'src/app/core/services/soldier.service';
     FormCreatorComponent,
     ConfirmDialogModule,
     ToastModule,
+    FormsModule,
   ],
   templateUrl: './class.component.html',
   styleUrl: './class.component.scss',
   providers: [ConfirmationService, MessageService],
 })
 export class ClassComponent implements OnInit {
+  
+  @ViewChild('dt1') myDiv: any;
+  filtermethod2(event) {
+    console.log(event.target.value);
+    
+    this.myDiv.filterGlobal(event.target.value, 'contains')
+  }
+
+  
   constructor(
     private classService: ClassService,
     private route: ActivatedRoute,
@@ -75,6 +86,8 @@ export class ClassComponent implements OnInit {
     this.classService.getAll(this.id).subscribe({
       next: (resp: any) => {
         this.classes = resp;
+
+        console.log(this.classes);
       },
     });
   }
@@ -238,9 +251,6 @@ export class ClassComponent implements OnInit {
     });
   }
 
-
-
-
   public formFeilds1: FormModalField[] = [
     {
       type: FormFieldType.SELECT,
@@ -267,12 +277,12 @@ export class ClassComponent implements OnInit {
   ];
   submitform1(form) {
     console.log(form);
-    
+
     const body = {
       enrollmentId: this.enrolments1._id,
       sessionDate: new Date(),
       status: form.status,
-      description:form.description
+      description: form.description,
     };
     this.classService.attendances(body).subscribe({
       next: () => {
@@ -280,32 +290,28 @@ export class ClassComponent implements OnInit {
           severity: 'info',
           summary: 'تایید',
           detail: `وضعیت سرباز ${
-            this.enrolments1.soldier.firstName + ' ' + this.enrolments1.soldier.lastName
+            this.enrolments1.soldier.firstName +
+            ' ' +
+            this.enrolments1.soldier.lastName
           } ثبت شد`,
           life: 3000,
         });
       },
     });
-
   }
-  visibleform:boolean=false
-  enrolments1:any
-  setStatusAttendances(enrolments){
-    this.visibleform = true
-    this.visible2 = false
-    this.enrolments1 = enrolments
+  visibleform: boolean = false;
+  enrolments1: any;
+  setStatusAttendances(enrolments) {
+    this.visibleform = true;
+    this.visible2 = false;
+    this.enrolments1 = enrolments;
   }
 
-
-  setGrade(enrolments){
-    this.visiblegrade = true
-    this.visible2 = false
-    this.enrolments1 = enrolments
+  setGrade(enrolments) {
+    this.visiblegrade = true;
+    this.visible2 = false;
+    this.enrolments1 = enrolments;
   }
-  
-
-
-
 
   public formFeildsgrade: FormModalField[] = [
     {
@@ -340,28 +346,31 @@ export class ClassComponent implements OnInit {
   ];
   submitformgrade(form) {
     console.log(form);
-    
+
     const body = {
       enrollmentId: this.enrolments1._id,
       score: form.score,
       passOrFail: form.passOrFail,
-      note:form.note
+      note: form.note,
     };
     this.soldierServices.setgrade(body).subscribe({
       next: () => {
+        this.visiblegrade = false;
+    this.visible2 = true;
         this.messageService.add({
+          
           severity: 'info',
           summary: 'تایید',
           detail: `نمره ${form.score} برای سرباز ${
-            this.enrolments1.soldier.firstName + ' ' + this.enrolments1.soldier.lastName
+            this.enrolments1.soldier.firstName +
+            ' ' +
+            this.enrolments1.soldier.lastName
           } ثبت شد`,
           life: 3000,
         });
       },
     });
-
   }
-  visiblegrade:boolean=false
-  grade:any
-  
+  visiblegrade: boolean = false;
+  grade: any;
 }

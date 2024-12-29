@@ -3,7 +3,6 @@ import {CommonModule} from '@angular/common';
 import {RouterOutlet} from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
 import { BehaviorSubject, Subscription, interval } from 'rxjs';
-import { SwService } from './core/services/sw.service';
 
 @Component({
   selector: 'app-root',

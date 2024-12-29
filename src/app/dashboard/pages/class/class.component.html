@@ -2,16 +2,31 @@
   styleClass="card-style rounded-xl bg-[--content-color] text-slate-100 border-none shadow-none"
 >
   <p-table
+    #dt1
     [value]="classes"
     [tableStyle]="{ 'min-width': '50rem' }"
     styleClass="tb-style"
+    [globalFilterFields]="[
+      'title',
+      'startDate',
+      'endDate',
+      'classType',
+      'capacity',
+      'teacher'
+    ]"
   >
     <ng-template pTemplate="caption">
       <div class="flex items-center justify-between">
         <!-- <p class="mb-0 text-slate-100">مشتری</p> -->
 
         <!-- <p-button label="بازگشت" (onClick)="return()" class="p-button-style" /> -->
-
+        <input
+        class="pl-10 pr-4 py-2 border rounded-lg" 
+          pInputText
+          type="text"
+          (input)="filtermethod2($event)"
+          placeholder="Global Search"
+        />
         <div>
           <app-create></app-create>
         </div>
@@ -19,10 +34,10 @@
     </ng-template>
     <ng-template pTemplate="header">
       <tr>
-        <th>دوره</th>
-        <th>تاریخ شروع دوره</th>
-        <th>تاریخ پایان دوره</th>
-        <th>نام مدرس کلاس</th>
+        <th>کلاس</th>
+        <th>تاریخ شروع کلاس</th>
+        <th>تاریخ پایان کلاس</th>
+        <th pSortableColumn="name">نام مدرس کلاس</th>
         <th>نوع کلاس</th>
         <th>ظرفیت کلاس</th>
         <th>تغییرات</th>
@@ -161,7 +176,7 @@
         <th style="min-width: 25%">نام و نام خانوادگی</th>
         <th style="min-width: 15%">شماره پرسنلی</th>
         <th style="min-width: 200px">حضور و غیاب</th>
-        <th style="min-width: 200px">تغییرات</th>
+        <th style="min-width: 200px">حذف از کلاس</th>
         <th style="min-width: 200px">ثبت نمره</th>
       </tr>
     </ng-template>
@@ -219,9 +234,9 @@
         </td>
         <td class="">
           <p-button
-            styleClass="bg-rose-500/25 w-10 h-10 hover:bg-rose-500/75"
+            styleClass="bg-green-500/25 w-10 h-10 hover:bg-green-500/75"
             size="small"
-            icon="pi pi-times"
+            icon="pi pi-pencil"
             [rounded]="true"
             [outlined]="true"
             severity="success"
@@ -231,18 +246,15 @@
       </tr>
     </ng-template>
   </p-table>
-  </p-dialog>
-  <p-dialog
+</p-dialog>
+<p-dialog
   header="وضعیت حضور و غیاب سرباز"
   [modal]="true"
   [(visible)]="visibleform"
   [style]="{ width: '55rem' }"
 >
   @if(visibleform){
-  <form-creator
-    [fields]="formFeilds1"
-    (submitForm)="submitform1($event)"
-  />}
+  <form-creator [fields]="formFeilds1" (submitForm)="submitform1($event)" />}
 </p-dialog>
 <p-dialog
   header="ثبت نمره"

@@ -15,7 +15,6 @@ import { ChipModule } from 'primeng/chip';
 import { CarouselModule } from 'primeng/carousel';
 import { TagModule } from 'primeng/tag';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { PostsService } from 'src/app/core/services/posts.service';
 import { Ipost } from 'src/app/core/models/post';
 import {
   ChartComponent,

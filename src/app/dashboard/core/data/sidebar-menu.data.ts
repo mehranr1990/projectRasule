@@ -24,6 +24,33 @@ export const sidebarMenu: MenuItem[] = [
         icon: 'fa-regular fa-grid-2',
         routerLink: ['/dashboard/categories']
       },
+      {
+        label: 'گزارشات',
+        icon: 'fa-regular fa-grid-2',
+        items: [
+          {
+            label: 'دوره ها',
+            routerLink: ['/dashboard/reportscourses']
+            
+          },
+          {
+            label: 'کلاس‌ ها',
+            routerLink: ['/dashboard/reportsclasses']
+            
+          },
+          {
+            label: 'حضور و غیاب',
+            routerLink: ['/dashboard/reportsattendance']
+            
+          },
+          {
+            label: 'نمرات ',
+            routerLink: ['/dashboard/reportsgrade']
+            
+          },
+         
+        ]
+      },
       // {
       //   label: 'نظرات',
       //   icon: 'fa-regular fa-code',

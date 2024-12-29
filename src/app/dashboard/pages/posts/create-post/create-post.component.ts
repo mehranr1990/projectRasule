@@ -13,8 +13,6 @@ import { FormsModule, Validators } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { CategoriesService } from 'src/app/core/services/categories.service';
-import { TagsService } from 'src/app/core/services/tags.service';
-import { PostsService } from 'src/app/core/services/posts.service';
 import { UserStore } from 'src/app/core/stores/user.store';
 import { CardModule } from 'primeng/card';
 import { environment } from 'src/environments/environment';
@@ -55,7 +53,6 @@ export class CreatePostComponent implements OnInit {
   constructor(
     private imageApi: ImageService,
     private categoryservice: CategoriesService,
-    private tagservice: TagsService,
     private soldierService: SoldierService,
     private userStore:UserStore
   ) {}
@@ -82,16 +79,7 @@ export class CreatePostComponent implements OnInit {
         }
       },
     });
-    this.tagservice.getAll().subscribe({
-      next: (resp) => {
-        for (let index = 0; index < resp.length; index++) {
-          this.tags.push({
-            name: resp[index].title,
-            code: resp[index].title,
-          });
-        }
-      },
-    });
+   
   }
   resetUploadHeaderPic() {
     this.headerimageUploaded = false;

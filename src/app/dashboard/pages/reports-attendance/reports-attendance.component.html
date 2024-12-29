@@ -1,0 +1,59 @@
+<p-card
+  styleClass="card-style rounded-xl bg-[--content-color] text-slate-100 border-none shadow-none"
+>
+  <p-table
+    #dt1
+    [value]="attendance"
+    [paginator]="true"
+    [rows]="10"
+    [rowsPerPageOptions]="[10, 25, 100]"
+    styleClass="tb-style"
+    responsiveLayout="stack"
+    [globalFilterFields]="[
+      'firstName',
+      'lastName',
+      'personalNumber',
+      'service'
+    ]"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex items-center justify-between">
+        <!-- <p class="mb-0 text-slate-100">مشتری</p> -->
+        <input class="pl-10 pr-4 py-2 border rounded-lg" 
+          pInputText
+          type="text"
+          (input)="filtermethod2($event)"
+          placeholder="Global Search"
+        />
+       
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th >نام و نام خانوادگی</th>
+        <th>شماره پرسنلی</th>
+        <th>نام کلاس</th>
+        <th>توضیحات</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-post>
+      <tr>
+        <td>
+          <span class="p-column-title">نام و نام خانوادگی : </span
+          >{{ post.enrollment.soldier.firstName +' '+post.enrollment.soldier.lastName }}
+        </td>
+        <td>
+          <span class="p-column-title">شماره پرسنلی : </span
+          >{{ post.enrollment.soldier.personalNumber }}
+        </td>
+        <td>
+          <span class="p-column-title">نام کلاس : </span>{{ post.enrollment.class.classType }}
+        </td>
+        <td class="justify-end">
+          
+          <span class="p-column-title">توضیحات : </span>{{ post.description }}
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>

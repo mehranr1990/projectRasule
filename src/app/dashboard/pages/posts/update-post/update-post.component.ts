@@ -13,8 +13,6 @@ import { FormsModule, Validators } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { CategoriesService } from 'src/app/core/services/categories.service';
-import { TagsService } from 'src/app/core/services/tags.service';
-import { PostsService } from 'src/app/core/services/posts.service';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';

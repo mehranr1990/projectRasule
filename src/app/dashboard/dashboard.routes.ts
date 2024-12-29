@@ -14,25 +14,40 @@ export const routes: Routes = [
       import('./pages/posts/posts.routes').then(({ routes }) => routes),
   },
 
-  {
-    path: 'comments/:postId',
-    loadComponent: () =>
-      import('./pages/comments/comments.component').then(
-        ({ CommentsComponent }) => CommentsComponent
-      ),
-  },
-  {
-    path: 'comments',
-    loadComponent: () =>
-      import('./pages/comments/comments.component').then(
-        ({ CommentsComponent }) => CommentsComponent
-      ),
-  },
+ 
   {
     path: 'categories',
     loadComponent: () =>
       import('./pages/categories/categories.component').then(
         ({ CategoriesComponent }) => CategoriesComponent
+      ),
+  },
+  {
+    path: 'reportscourses',
+    loadComponent: () =>
+      import('./pages/reports-courses/reports-courses.component').then(
+        ({ ReportsCoursesComponent }) => ReportsCoursesComponent
+      ),
+  },
+  {
+    path: 'reportsclasses',
+    loadComponent: () =>
+      import('./pages/reports-classes/reports-classes.component').then(
+        ({ ReportsClassesComponent }) => ReportsClassesComponent
+      ),
+  },
+  {
+    path: 'reportsgrade',
+    loadComponent: () =>
+      import('./pages/reports-grade/reports-grade.component').then(
+        ({ ReportsGradeComponent }) => ReportsGradeComponent
+      ),
+  },
+  {
+    path: 'reportsattendance',
+    loadComponent: () =>
+      import('./pages/reports-attendance/reports-attendance.component').then(
+        ({ ReportsAttendanceComponent }) => ReportsAttendanceComponent
       ),
   },
   {
