@@ -12,7 +12,7 @@ import { CoursesService } from 'src/app/core/services/courses.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-categories',
+  selector: 'app-corsess',
   standalone: true,
   imports: [
     ButtonModule,
@@ -23,11 +23,10 @@ import { Router } from '@angular/router';
     ConfirmDialogModule,
     ToastModule,
   ],
-  templateUrl: './categories.component.html',
-  styleUrl: './categories.component.scss',
-  providers: [ConfirmationService, MessageService],
+  templateUrl: './corsess.component.html',
+  styleUrl: './corsess.component.scss',providers: [ConfirmationService, MessageService],
 })
-export class CategoriesComponent implements OnInit {
+export class CorsessComponent implements OnInit {
   constructor(
     private coursesService: CoursesService,
     private confirmationService: ConfirmationService,

@@ -43,13 +43,19 @@ import { FormsModule } from '@angular/forms';
 export class ClassComponent implements OnInit {
   
   @ViewChild('dt1') myDiv: any;
+  @ViewChild('dt2') myDiv2: any;
+  @ViewChild('dt3') myDiv3: any;
   filtermethod2(event) {
-    console.log(event.target.value);
-    
     this.myDiv.filterGlobal(event.target.value, 'contains')
   }
-
-  
+  filtermethod3(event) {
+    
+    this.myDiv2.filterGlobal(event.target.value, 'contains')
+  }
+  filtermethod4(event) {
+    
+    this.myDiv3.filterGlobal(event.target.value, 'contains')
+  }
   constructor(
     private classService: ClassService,
     private route: ActivatedRoute,
@@ -76,11 +82,20 @@ export class ClassComponent implements OnInit {
   classes: any;
   private sub;
   id: string;
+  cols!: any[];
   ngOnInit() {
     this.sub = this.route.params.subscribe((params) => {
       this.id = params['postId'];
     });
     this.getclasess();
+    this.cols = [
+      { field: 'title', header: 'title', },
+      { field: 'startDate', header: 'startDate' },
+      { field: 'endDate', header: 'endDate' },
+      { field: 'classType', header: 'classType' },
+      { field: 'capacity', header: 'capacity' },
+      { field: 'teacher', header: 'teacher' }
+  ];
   }
   getclasess() {
     this.classService.getAll(this.id).subscribe({

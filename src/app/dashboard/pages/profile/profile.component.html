@@ -1,14 +1,33 @@
-<p-card styleClass="card-style rounded-xl bg-[--content-color] text-slate-100 border-none shadow-none">
+<p-card
+  styleClass="card-style rounded-xl bg-[--content-color] text-slate-100 border-none shadow-none"
+>
   <p-table
+  #dt1
     [value]="users"
     [tableStyle]="{ 'min-width': '50rem' }"
     styleClass="tb-style"
+    [columns]="cols"
+    [globalFilterFields]="[
+      'username',
+      'role',
+      'isActive',
+    ]"
   >
     <ng-template pTemplate="caption">
       <div class="flex items-center justify-between">
         <!-- <p class="mb-0 text-slate-100">مشتری</p> -->
-
-
+        <p-button
+        icon="pi pi-external-link"
+        label="Export"
+        (click)="dt1.exportCSV()"
+      />
+    <input
+      class="pl-10 pr-4 py-2 border rounded-lg"
+      pInputText
+      type="text"
+      (input)="filtermethod2($event)"
+      placeholder="Global Search"
+    />
         <div>
           <app-create></app-create>
         </div>
@@ -26,7 +45,7 @@
       <tr>
         <td>{{ Category.username }}</td>
         <td>{{ Category.role }}</td>
-        <td>{{ Category.isActive?'فعال':'غیر فعال' }}</td>
+        <td>{{ Category.isActive ? "فعال" : "غیر فعال" }}</td>
         <td>
           <p-button
             styleClass="bg-sky-500/25 w-10 h-10 hover:bg-sky-500/75"
@@ -38,8 +57,8 @@
           />
           <!-- <app-edit [category]="Category"></app-edit> -->
           <p-button
-          styleClass="bg-green-500/25 w-10 h-10 hover:bg-green-500/75 mx-2"
-          icon="pi pi-save"
+            styleClass="bg-green-500/25 w-10 h-10 hover:bg-green-500/75 mx-2"
+            icon="pi pi-save"
             severity="primary"
             [rounded]="true"
             [outlined]="true"
@@ -54,8 +73,8 @@
           (onClick)="ViewCategory(Category)"
           /> -->
           <p-button
-          styleClass="bg-rose-500/25 w-10 h-10 hover:bg-rose-500/75 mx-2"
-          icon="pi pi-trash"
+            styleClass="bg-rose-500/25 w-10 h-10 hover:bg-rose-500/75 mx-2"
+            icon="pi pi-trash"
             severity="danger"
             [rounded]="true"
             [outlined]="true"
@@ -68,11 +87,8 @@
 </p-card>
 <br />
 
-
-<p-toast/>
-<p-confirmDialog class="style-confirm"/>
-
-
+<p-toast />
+<p-confirmDialog class="style-confirm" />
 
 <p-dialog
   header="تغییر کلاس"
@@ -88,4 +104,3 @@
     [values]="formValues"
   />}
 </p-dialog>
-

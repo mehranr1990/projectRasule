@@ -4,8 +4,12 @@
   <p-table
     #dt1
     [value]="classes"
+    [paginator]="true"
+    [rows]="10"
+    [rowsPerPageOptions]="[5, 10, 20]"
     [tableStyle]="{ 'min-width': '50rem' }"
     styleClass="tb-style"
+    [columns]="cols"
     [globalFilterFields]="[
       'title',
       'startDate',
@@ -19,7 +23,11 @@
       <div class="flex items-center justify-between">
         <!-- <p class="mb-0 text-slate-100">مشتری</p> -->
 
-        <!-- <p-button label="بازگشت" (onClick)="return()" class="p-button-style" /> -->
+        <!-- <p-button label="بازگشت" (onClick)="return()" class="p-button-style" /> -->  <p-button
+            icon="pi pi-external-link"
+            label="Export"
+            (click)="dt1.exportCSV()"
+          />
         <input
         class="pl-10 pr-4 py-2 border rounded-lg" 
           pInputText
@@ -98,6 +106,7 @@
     (submitEditForm)="submitform($event)"
     [options]="formOptions"
     [values]="formValues"
+    
   />}
 </p-dialog>
 
@@ -108,16 +117,29 @@
   [style]="{ width: '35rem' }"
 >
   <p-table
+  #dt2
     [value]="soldier"
     [paginator]="true"
     [rows]="10"
     [rowsPerPageOptions]="[5, 10, 20]"
     styleClass="tb-style"
     responsiveLayout="stack"
+    [globalFilterFields]="[
+      'firstName',
+      'lastName',
+      'personalNumber',
+    ]"
   >
     <ng-template pTemplate="caption">
       <div class="flex items-center justify-between">
         <!-- <p class="mb-0 text-slate-100">مشتری</p> -->
+        <input
+        class="pl-10 pr-4 py-2 border rounded-lg" 
+          pInputText
+          type="text"
+          (input)="filtermethod3($event)"
+          placeholder="Global Search"
+        />
       </div>
     </ng-template>
     <ng-template pTemplate="header">
@@ -159,16 +181,28 @@
   [style]="{ width: '75rem' }"
 >
   <p-table
+  #dt3
     [value]="enrollmentsinclass"
     [paginator]="true"
     [rows]="10"
     [rowsPerPageOptions]="[5, 10, 20]"
     styleClass="tb-style"
     responsiveLayout="stack"
+    [globalFilterFields]="[
+      'soldier.firstName',
+      'soldier.lastName',
+      'soldier.personalNumber',
+    ]"
   >
     <ng-template pTemplate="caption">
       <div class="flex items-center justify-between">
-        <!-- <p class="mb-0 text-slate-100">مشتری</p> -->
+        <!-- <p class="mb-0 text-slate-100">مشتری</p> -->  <input
+        class="pl-10 pr-4 py-2 border rounded-lg" 
+        pInputText
+        type="text"
+        (input)="filtermethod3($event)"
+        placeholder="Global Search"
+      />
       </div>
     </ng-template>
     <ng-template pTemplate="header">

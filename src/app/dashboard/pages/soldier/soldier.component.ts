@@ -1,3 +1,4 @@
+
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
@@ -12,7 +13,7 @@ import { ScrollerModule } from 'primeng/scroller';
 import { SoldierService } from 'src/app/core/services/soldier.service';
 import { FormsModule } from '@angular/forms';
 @Component({
-  selector: 'app-posts',
+  selector: 'app-soldier',
   standalone: true,
   imports: [
     TableModule,
@@ -26,10 +27,10 @@ import { FormsModule } from '@angular/forms';
         FormsModule, 
   ],
   providers: [ConfirmationService, MessageService],
-  templateUrl: './posts.component.html',
-  styleUrl: './posts.component.scss',
+  templateUrl: './soldier.component.html',
+  styleUrl: './soldier.component.scss'
 })
-export class PostsComponent implements OnInit {
+export class SoldierComponent implements OnInit {
   // @ViewChild('deletecomponent', { static: true })
   // deletepostcomponent: DeleteComponent;
   @ViewChild('dt1') myDiv: any;
@@ -64,18 +65,10 @@ export class PostsComponent implements OnInit {
   editPost(post) {
     console.log(post);
     
-    this._router.navigate(['dashboard/posts/update', post._id]);
-  }
-  
-  
-  viewPost(post: Ipost) {
-    window.open(`https://blog.coinkade.com/${post.postName}`, '_blank');
+    this._router.navigate(['dashboard/soldier/update', post._id]);
   }
   createNewPost() {
-    this._router.navigate(['dashboard/posts/create']);
-  }
-  viewcomments(post){
-    this._router.navigate(['dashboard/comments/', post.id]);
+    this._router.navigate(['dashboard/soldier/create']);
   }
  
 }

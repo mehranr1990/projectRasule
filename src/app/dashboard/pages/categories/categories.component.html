@@ -1,14 +1,35 @@
 <p-card styleClass="card-style rounded-xl bg-[--content-color] text-slate-100 border-none shadow-none">
   <p-table
+  #dt1
     [value]="categories"
     [tableStyle]="{ 'min-width': '50rem' }"
     styleClass="tb-style"
+    
+    [paginator]="true"
+    [rows]="10"
+    [rowsPerPageOptions]="[5, 10, 20]"
+    [columns]="cols"
+    [globalFilterFields]="[
+      'title',
+      'startDate',
+      'endDate',
+    ]"
   >
     <ng-template pTemplate="caption">
       <div class="flex items-center justify-between">
         <!-- <p class="mb-0 text-slate-100">مشتری</p> -->
-
-        <p-button label="بازگشت" (onClick)="return()" class="p-button-style" />
+        <p-button
+        icon="pi pi-external-link"
+        label="Export"
+        (click)="dt1.exportCSV()"
+      />
+        <input
+        class="pl-10 pr-4 py-2 border rounded-lg"
+        pInputText
+        type="text"
+        (input)="filtermethod2($event)"
+        placeholder="Global Search"
+      />
 
         <div>
           <app-create></app-create>

@@ -1,5 +1,5 @@
 import { ButtonModule } from 'primeng/button';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ImageModule } from 'primeng/image';
 import { UsersService } from 'src/app/core/services/users.service';
 import { UpdateComponent } from './update/update.component';
@@ -50,8 +50,21 @@ export class ProfileComponent implements OnInit {
     private messageService: MessageService,
     private _router: Router
   ) {}
+  @ViewChild('dt1') myDiv: any;
+  filtermethod2(event) {
+    console.log(event.target.value);
+    
+    this.myDiv.filterGlobal(event.target.value, 'contains')
+  }
+
+  cols!: any[];
   ngOnInit() {
     this.getusers();
+    this.cols = [
+      { field: 'username', header: 'username', },
+      { field: 'role', header: 'role' },
+      { field: 'isActive', header: 'isActive' },
+  ];
   }
   getusers() {
     this.profileservise.getAll().subscribe({

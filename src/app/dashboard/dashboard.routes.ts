@@ -9,17 +9,17 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'posts',
+    path: 'soldier',
     loadChildren: () =>
-      import('./pages/posts/posts.routes').then(({ routes }) => routes),
+      import('./pages/soldier/soldier.routes').then(({ routes }) => routes),
   },
 
  
   {
-    path: 'categories',
+    path: 'courses',
     loadComponent: () =>
-      import('./pages/categories/categories.component').then(
-        ({ CategoriesComponent }) => CategoriesComponent
+      import('./pages/corsess/corsess.component').then(
+        ({ CorsessComponent }) => CorsessComponent
       ),
   },
   {

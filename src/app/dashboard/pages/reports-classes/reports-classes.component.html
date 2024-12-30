@@ -9,16 +9,22 @@
     [rowsPerPageOptions]="[10, 25, 100]"
     styleClass="tb-style"
     responsiveLayout="stack"
+    
+    [columns]="cols"
     [globalFilterFields]="[
-      'firstName',
-      'lastName',
-      'personalNumber',
-      'service'
+      'title',
+      'startDate',
+      'endDate',
+      'description'
     ]"
   >
     <ng-template pTemplate="caption">
       <div class="flex items-center justify-between">
-        <!-- <p class="mb-0 text-slate-100">مشتری</p> -->
+        <!-- <p class="mb-0 text-slate-100">مشتری</p> -->   <p-button
+        icon="pi pi-external-link"
+        label="Export"
+        (click)="dt1.exportCSV()"
+      />
         <input class="pl-10 pr-4 py-2 border rounded-lg" 
           pInputText
           type="text"

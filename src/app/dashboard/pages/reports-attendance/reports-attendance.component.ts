@@ -39,11 +39,19 @@ export class ReportsAttendanceComponent {
     private reportService:ReportsService,
 
   ) {}
+    cols!: any[];
+
   ngOnInit() {
     this.reportService.getAllattendance().subscribe({next:(resp)=>{
       this.attendance = resp
       console.log(resp);
-      
+       this.cols = [
+      { field: 'firstName', header: 'firstName', },
+      { field: 'lastName', header: 'lastName' },
+      { field: 'personalNumber', header: 'personalNumber' },
+      { field: 'classType', header: 'classType' },
+      { field: 'description', header: 'description' },
+  ];
     }}) 
   }
 }

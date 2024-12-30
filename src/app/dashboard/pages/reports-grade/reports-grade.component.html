@@ -9,16 +9,23 @@
     [rowsPerPageOptions]="[10, 25, 100]"
     styleClass="tb-style"
     responsiveLayout="stack"
+    [columns]="cols"
     [globalFilterFields]="[
-      'firstName',
-      'lastName',
-      'personalNumber',
-      'service'
+      'enrollment.soldier.firstName',
+      'enrollment.soldier.lastName',
+      'score',
+      'enrollment.soldier.personalNumber',
+      'enrollment.class.classType',
+      'note',
     ]"
   >
     <ng-template pTemplate="caption">
       <div class="flex items-center justify-between">
-        <!-- <p class="mb-0 text-slate-100">مشتری</p> -->
+        <!-- <p class="mb-0 text-slate-100">مشتری</p> -->   <p-button
+        icon="pi pi-external-link"
+        label="Export"
+        (click)="dt1.exportCSV()"
+      />
         <input class="pl-10 pr-4 py-2 border rounded-lg" 
           pInputText
           type="text"
@@ -39,10 +46,10 @@
     </ng-template>
     <ng-template pTemplate="body" let-post>
       <tr>
-        <!-- <td>
+        <td>
           <span class="p-column-title">نام و نام خانوادگی : </span
-          >{{ post.enrollment.soldier?.firstName +' '+post.enrollment.soldier?.lastName }}
-        </td> -->
+          >{{ post.enrollment.soldier.firstName +' '+post.enrollment.soldier.lastName }}
+        </td>
         <td>
           <span class="p-column-title">نمره : </span
           >{{ post.score }}

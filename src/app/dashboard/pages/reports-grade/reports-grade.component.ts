@@ -22,12 +22,28 @@ export class ReportsGradeComponent {
   }
   Grades: any = [];
   constructor(private reportService: ReportsService) {}
+  cols!: any[];
+
   ngOnInit() {
     this.reportService.getAllGrades().subscribe({
       next: (resp) => {
-        this.Grades = resp;
-        console.log(this.Grades);
+        console.log(resp);
+        
+        resp.filter(res=>{
+          if(res.enrollment){
+
+            this.Grades.push(res);
+          }
+        })
       },
     });
+     this.cols = [
+      { field: 'firstName', header: 'firstName', },
+      { field: 'lastName', header: 'lastName' },
+      { field: 'score', header: 'score' },
+      { field: 'personalNumber', header: 'personalNumber' },
+      { field: 'classType', header: 'classType' },
+      { field: 'note', header: 'note' },
+  ];
   }
 }

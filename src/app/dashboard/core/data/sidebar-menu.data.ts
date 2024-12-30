@@ -11,18 +11,18 @@ export const sidebarMenu: MenuItem[] = [
         items: [
           {
             label: 'سربازها',
-            routerLink: ['/dashboard/posts']
+            routerLink: ['/dashboard/soldier']
           },
           {
             label: 'افزودن سرباز',
-            routerLink: ['/dashboard/posts/create']
+            routerLink: ['/dashboard/soldier/create']
           }
         ]
       },
       {
         label: 'دوره ها',
         icon: 'fa-regular fa-grid-2',
-        routerLink: ['/dashboard/categories']
+        routerLink: ['/dashboard/courses']
       },
       {
         label: 'گزارشات',

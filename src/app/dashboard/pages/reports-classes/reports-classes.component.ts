@@ -38,9 +38,17 @@ export class ReportsClassesComponent {
     private reportService:ReportsService,
 
   ) {}
+  cols!: any[];
+
   ngOnInit() {
     this.reportService.getAllCourses().subscribe({next:(resp)=>{
       this.courses = resp
+       this.cols = [
+      { field: 'title', header: 'title', },
+      { field: 'startDate', header: 'startDate' },
+      { field: 'endDate', header: 'endDate' },
+      { field: 'description', header: 'description' },
+  ];
     }}) 
   }
 }
