@@ -20,10 +20,12 @@ import {
 } from 'src/app/components/shared/form-creator/form-creator.model';
 import { SoldierService } from 'src/app/core/services/soldier.service';
 import { FormsModule } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-class',
   standalone: true,
   imports: [
+    DatePipe,
     ButtonModule,
     TableModule,
     CreateComponent,

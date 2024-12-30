@@ -52,11 +52,11 @@
           >{{ post.startDate }}
         </td>
         <td>
-          <span class="p-column-title">محل خدمت : </span>{{ post.endDate }}
+          <span class="p-column-title">محل خدمت : </span>{{ post.endDate| date:'yyyy-MM-dd' }}
         </td>
         <td class="justify-end">
           
-          <span class="p-column-title">محل خدمت : </span>{{ post.description }}
+          <span class="p-column-title">محل خدمت : </span>{{ post.description| date:'yyyy-MM-dd' }}
         </td>
       </tr>
     </ng-template>

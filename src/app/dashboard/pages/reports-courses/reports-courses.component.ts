@@ -9,11 +9,13 @@ import { ToastModule } from 'primeng/toast';
 import { ScrollerModule } from 'primeng/scroller';
 import { SoldierService } from 'src/app/core/services/soldier.service';
 import { ReportsService } from 'src/app/core/services/reports.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-reports-courses',
   standalone: true,
   imports: [
+    DatePipe,
     TableModule,
     ButtonModule,
     DialogComponent,

@@ -50,10 +50,10 @@
         </td>
         <td>
           <span class="p-column-title">شماره پرسنلی : </span
-          >{{ post.startDate }}
+          >{{ post.startDate | date:'yyyy-MM-dd' }}
         </td>
         <td>
-          <span class="p-column-title">محل خدمت : </span>{{ post.endDate }}
+          <span class="p-column-title">محل خدمت : </span>{{ post.endDate | date:'yyyy-MM-dd' }}
         </td>
         <td class="justify-end">
           

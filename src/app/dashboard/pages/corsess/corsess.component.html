@@ -47,8 +47,8 @@
       <ng-template pTemplate="body" let-Category>
         <tr>
           <td>{{ Category.title }}</td>
-          <td>{{ Category.startDate }}</td>
-          <td>{{ Category.endDate }}</td>
+          <td>{{ Category.startDate| date:'yyyy-MM-dd' }}</td>
+          <td>{{ Category.endDate | date:'yyyy-MM-dd'}}</td>
           <td>
             <!-- <app-edit [category]="Category"></app-edit> -->
             <p-button

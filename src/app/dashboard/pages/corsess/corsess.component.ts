@@ -10,11 +10,13 @@ import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { CoursesService } from 'src/app/core/services/courses.service';
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-corsess',
   standalone: true,
   imports: [
+    DatePipe,
     ButtonModule,
     TableModule,
     CreateComponent,

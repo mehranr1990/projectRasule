@@ -3,7 +3,11 @@
 >
   <p-table
     #dt1
+    [responsive]="true"
+    [scrollable]="true"
     [value]="classes"
+    responsiveLayout="stack"
+    breakpoint="800px"
     [paginator]="true"
     [rows]="10"
     [rowsPerPageOptions]="[5, 10, 20]"
@@ -54,8 +58,8 @@
     <ng-template pTemplate="body" let-class>
       <tr>
         <td>{{ class.title }}</td>
-        <td>{{ class.startDate }}</td>
-        <td>{{ class.endDate }}</td>
+        <td>{{ class.startDate| date:'yyyy-MM-dd' }}</td>
+        <td>{{ class.endDate | date:'yyyy-MM-dd'}}</td>
         <td>{{ class.teacher }}</td>
         <td>{{ class.classType }}</td>
         <td>{{ class.capacity }}</td>
