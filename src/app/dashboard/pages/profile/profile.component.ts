@@ -8,7 +8,6 @@ import { TooltipModule } from 'primeng/tooltip';
 import { CardModule } from 'primeng/card';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { EditComponent } from '../categories/edit/edit.component';
 import { TableModule } from 'primeng/table';
 import { CoursesService } from 'src/app/core/services/courses.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -29,7 +28,6 @@ import { FormCreatorComponent } from 'src/app/components/shared/form-creator/for
     ButtonModule,
     TableModule,
     CreateComponent,
-    EditComponent,
     CardModule,
     DialogModule,
     ConfirmDialogModule,

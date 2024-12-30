@@ -9,7 +9,7 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CardModule } from 'primeng/card';
 import { PrimengEditorComponent } from '../../../components/primeng-editor/primeng-editor.component';
-import { PostsComponent } from '../posts/posts.component';
+
 import { ButtonModule } from 'primeng/button';
 import { ChipModule } from 'primeng/chip';
 import { CarouselModule } from 'primeng/carousel';
@@ -47,7 +47,6 @@ export type ChartOptions = {
     FormsModule,
     CardModule,
     PrimengEditorComponent,
-    PostsComponent,
     ButtonModule,
     ChipModule,
     CarouselModule,

@@ -9,7 +9,6 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { CoursesService } from 'src/app/core/services/courses.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CreateComponent } from '../class/create/create.component';
-import { EditComponent } from '../categories/edit/edit.component';
 import { ClassService } from 'src/app/core/services/class.service';
 import { DialogModule } from 'primeng/dialog';
 import { FormCreatorComponent } from 'src/app/components/shared/form-creator/form-creator.component';
@@ -28,7 +27,6 @@ import { FormsModule } from '@angular/forms';
     ButtonModule,
     TableModule,
     CreateComponent,
-    EditComponent,
     CardModule,
     DialogModule,
     FormCreatorComponent,

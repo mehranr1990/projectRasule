@@ -5,7 +5,6 @@ import { DialogComponent } from 'src/app/components/dialog/dialog.component';
 import { CardModule } from 'primeng/card';
 import { Ipost } from 'src/app/core/models/post';
 import { Router } from '@angular/router';
-import { DeleteComponent } from '../posts/delete/delete.component';
 import { ToastModule } from 'primeng/toast';
 import { ScrollerModule } from 'primeng/scroller';
 import { SoldierService } from 'src/app/core/services/soldier.service';
