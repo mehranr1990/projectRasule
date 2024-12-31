@@ -34,7 +34,7 @@ import { DatePipe } from '@angular/common';
   styleUrl: './soldier.component.scss'
 })
 export class SoldierComponent implements OnInit {
-  public readonly baseURL = environment.photourl
+  public readonly photoUrl = environment.photourl
   // @ViewChild('deletecomponent', { static: true })
   // deletepostcomponent: DeleteComponent;
   @ViewChild('dt1') myDiv: any;
@@ -57,7 +57,6 @@ export class SoldierComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.id = params['soldier'];
-      console.log(this.baseURL);
       
     });
     

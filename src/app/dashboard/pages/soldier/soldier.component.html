@@ -86,7 +86,7 @@
           <span class="p-column-title">محل خدمت : </span> {{ post.service }}
         </td>
         <td>
-          <span class="p-column-title">تصویر : </span><div class="flex justify-center"><a [href]="baseURL + post.photoUrl" download="image.jpg"><img [src]="baseURL + post.photoUrl" alt="عکس سرباز" width="50" height="60"></a> </div>
+          <span class="p-column-title">تصویر : </span><div class="flex justify-center"><a [href]="photoUrl + post.photoUrl" download="image.jpg"><img [src]="photoUrl + post.photoUrl" alt="عکس سرباز" width="50" height="60"></a> </div>
         </td>
         <td class="justify-end">
           <p-button

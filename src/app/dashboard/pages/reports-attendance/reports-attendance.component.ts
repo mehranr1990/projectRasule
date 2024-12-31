@@ -9,6 +9,7 @@ import { ToastModule } from 'primeng/toast';
 import { ScrollerModule } from 'primeng/scroller';
 import { SoldierService } from 'src/app/core/services/soldier.service';
 import { ReportsService } from 'src/app/core/services/reports.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-reports-attendance',
@@ -25,6 +26,8 @@ import { ReportsService } from 'src/app/core/services/reports.service';
   styleUrl: './reports-attendance.component.scss',
 })
 export class ReportsAttendanceComponent {
+  
+  public readonly photoUrl = environment.photourl
   @ViewChild('dt1') myDiv: any;
   filtermethod2(event) {
     console.log(event.target.value);

@@ -44,6 +44,7 @@ responsiveLayout="stack"
     <th>نام کلاس</th>
     <th>نام دوره</th>
     <th>وضعیت</th>
+    <th>تصویر</th>
     <th>توضیحات</th>
   </tr>
 </ng-template>
@@ -65,6 +66,9 @@ responsiveLayout="stack"
     </td>
     <td>
       <span class="p-column-title">وضعیت : </span>{{ post.status }}
+    </td>
+    <td>
+      <span class="p-column-title">تصویر : </span><div class="flex justify-center"><a [href]="photoUrl + post.attachmentUrl" download="image.jpg"><img [src]="photoUrl + post.attachmentUrl" alt="فاقد عکس" width="50" height="60"></a> </div>
     </td>
     <td class="justify-end">
       

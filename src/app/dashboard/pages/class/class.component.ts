@@ -332,11 +332,19 @@ export class ClassComponent implements OnInit {
       status: form.status,
       description: form.description,
     };
+    console.log(body);
+    
     const newForm = new FormData();
     for (const property in body) {
-      newForm.append(property, form[property]);
+      console.log(property);
+      
+      newForm.append(property, body[property]);
+      console.log(newForm);
+      
     }
-    newForm.append('photo', this.image);
+
+    newForm.append('attachment', this.image);
+    
     console.log(newForm);
     this.classService.attendances(newForm).subscribe({
       next: () => {
