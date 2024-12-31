@@ -39,6 +39,7 @@
         <th>تاریخ شروع دوره</th>
         <th>تاریخ پایان دوره</th>
         <th>توضیحات</th>
+        <th>گزارشات</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-post>
@@ -49,14 +50,48 @@
         </td>
         <td>
           <span class="p-column-title">شماره پرسنلی : </span
-          >{{ post.startDate }}
+          >{{ post.startDate| date:'yyyy-MM-dd'  }}
         </td>
         <td>
           <span class="p-column-title">محل خدمت : </span>{{ post.endDate| date:'yyyy-MM-dd' }}
         </td>
         <td class="justify-end">
           
-          <span class="p-column-title">محل خدمت : </span>{{ post.description| date:'yyyy-MM-dd' }}
+          <span class="p-column-title">محل خدمت : </span>{{ post.description}}
+        </td>
+        <td>
+          <p-button
+          styleClass="bg-green-500/25 w-10 h-10 hover:bg-green-500/75 mx-2"
+          icon="pi pi-users"
+          severity="primary"
+          [rounded]="true"
+          [outlined]="true"
+          (onClick)="showclass(post)"
+        />
+          <p-button
+          styleClass="bg-green-500/25 w-10 h-10 hover:bg-green-500/75 mx-2"
+          icon="pi pi-check"
+          severity="primary"
+          [rounded]="true"
+          [outlined]="true"
+          (onClick)="showatt(post)"
+        />
+          <p-button
+          styleClass="bg-green-500/25 w-10 h-10 hover:bg-green-500/75 mx-2"
+          icon="pi pi-book"
+          severity="primary"
+          [rounded]="true"
+          [outlined]="true"
+          (onClick)="showgrade(post)"
+        />
+          <p-button
+          styleClass="bg-green-500/25 w-10 h-10 hover:bg-green-500/75 mx-2"
+          icon="pi pi-user"
+          severity="primary"
+          [rounded]="true"
+          [outlined]="true"
+          (onClick)="showsoldier(post)"
+        />
         </td>
       </tr>
     </ng-template>

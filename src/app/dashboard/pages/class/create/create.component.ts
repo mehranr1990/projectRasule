@@ -43,7 +43,7 @@ export class CreateComponent implements OnInit{
   public formFeilds: FormModalField[] = [
     {
       type: FormFieldType.TEXT,
-      name: 'title',
+      name: 'name',
       label: 'عنوان کلاس',
       value: '',
       validations: ['required',],
@@ -102,6 +102,9 @@ export class CreateComponent implements OnInit{
   
   submitform(form) {
     form.course = this.id
+    form.subject = 'knhvn'
+    console.log(form);
+    
     this.classService.create(form).subscribe({next:(resp)=>{
       this.visible =false
     }})

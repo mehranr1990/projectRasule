@@ -27,13 +27,14 @@
       <div class="flex items-center justify-between">
         <!-- <p class="mb-0 text-slate-100">مشتری</p> -->
 
-        <!-- <p-button label="بازگشت" (onClick)="return()" class="p-button-style" /> -->  <p-button
-            icon="pi pi-external-link"
-            label="Export"
-            (click)="dt1.exportCSV()"
-          />
+        <!-- <p-button label="بازگشت" (onClick)="return()" class="p-button-style" /> -->
+        <p-button
+          icon="pi pi-external-link"
+          label="Export"
+          (click)="dt1.exportCSV()"
+        />
         <input
-        class="pl-10 pr-4 py-2 border rounded-lg" 
+          class="pl-10 pr-4 py-2 border rounded-lg"
           pInputText
           type="text"
           (input)="filtermethod2($event)"
@@ -47,8 +48,6 @@
     <ng-template pTemplate="header">
       <tr>
         <th>کلاس</th>
-        <th>تاریخ شروع کلاس</th>
-        <th>تاریخ پایان کلاس</th>
         <th pSortableColumn="name">نام مدرس کلاس</th>
         <th>نوع کلاس</th>
         <th>ظرفیت کلاس</th>
@@ -57,9 +56,7 @@
     </ng-template>
     <ng-template pTemplate="body" let-class>
       <tr>
-        <td>{{ class.title }}</td>
-        <td>{{ class.startDate| date:'yyyy-MM-dd' }}</td>
-        <td>{{ class.endDate | date:'yyyy-MM-dd'}}</td>
+        <td>{{ class.name }}</td>
         <td>{{ class.teacher }}</td>
         <td>{{ class.classType }}</td>
         <td>{{ class.capacity }}</td>
@@ -110,7 +107,6 @@
     (submitEditForm)="submitform($event)"
     [options]="formOptions"
     [values]="formValues"
-    
   />}
 </p-dialog>
 
@@ -121,24 +117,20 @@
   [style]="{ width: '35rem' }"
 >
   <p-table
-  #dt2
+    #dt2
     [value]="soldier"
     [paginator]="true"
     [rows]="10"
     [rowsPerPageOptions]="[5, 10, 20]"
     styleClass="tb-style"
     responsiveLayout="stack"
-    [globalFilterFields]="[
-      'firstName',
-      'lastName',
-      'personalNumber',
-    ]"
+    [globalFilterFields]="['firstName', 'lastName', 'personalNumber']"
   >
     <ng-template pTemplate="caption">
       <div class="flex items-center justify-between">
         <!-- <p class="mb-0 text-slate-100">مشتری</p> -->
         <input
-        class="pl-10 pr-4 py-2 border rounded-lg" 
+          class="pl-10 pr-4 py-2 border rounded-lg"
           pInputText
           type="text"
           (input)="filtermethod3($event)"
@@ -185,7 +177,7 @@
   [style]="{ width: '75rem' }"
 >
   <p-table
-  #dt3
+    #dt3
     [value]="enrollmentsinclass"
     [paginator]="true"
     [rows]="10"
@@ -195,18 +187,19 @@
     [globalFilterFields]="[
       'soldier.firstName',
       'soldier.lastName',
-      'soldier.personalNumber',
+      'soldier.personalNumber'
     ]"
   >
     <ng-template pTemplate="caption">
       <div class="flex items-center justify-between">
-        <!-- <p class="mb-0 text-slate-100">مشتری</p> -->  <input
-        class="pl-10 pr-4 py-2 border rounded-lg" 
-        pInputText
-        type="text"
-        (input)="filtermethod3($event)"
-        placeholder="Global Search"
-      />
+        <!-- <p class="mb-0 text-slate-100">مشتری</p> -->
+        <input
+          class="pl-10 pr-4 py-2 border rounded-lg"
+          pInputText
+          type="text"
+          (input)="filtermethod3($event)"
+          placeholder="Global Search"
+        />
       </div>
     </ng-template>
     <ng-template pTemplate="header">
@@ -291,8 +284,22 @@
   [(visible)]="visibleform"
   [style]="{ width: '55rem' }"
 >
+  <div class="flex justify-center mt-3">
+    <p-fileUpload
+      mode="basic"
+      chooseLabel="انتخاب کردن"
+      chooseIcon="pi pi-upload"
+      name="demo[]"
+      url="https://www.primefaces.org/cdn/api/upload.php"
+      accept="image/*"
+      maxFileSize="1000000"
+      (onUpload)="headerUploadHandler($event)"
+    />
+  </div>
   @if(visibleform){
-  <form-creator [fields]="formFeilds1" (submitForm)="submitform1($event)" />}
+
+  <form-creator [fields]="formFeilds1" (submitForm)="submitform1($event)" />
+  }
 </p-dialog>
 <p-dialog
   header="ثبت نمره"
@@ -304,5 +311,6 @@
   <form-creator
     [fields]="formFeildsgrade"
     (submitForm)="submitformgrade($event)"
-  />}
+  />
+  }
 </p-dialog>

@@ -37,10 +37,10 @@ export class ReportsCoursesComponent {
   courses: any = [];
   constructor(
     private reportService:ReportsService,
-
+    private _router:Router
   ) {}
   cols!: any[];
-
+  visible:boolean = false
   ngOnInit() {
     this.reportService.getAllCourses().subscribe({next:(resp)=>{
       this.courses = resp
@@ -52,4 +52,17 @@ export class ReportsCoursesComponent {
   ];
     }}) 
   }
+  showatt(course){
+    this._router.navigate(['dashboard/reportsattendance/', course.courseId]);
+  }
+  showgrade(course){
+    this._router.navigate(['dashboard/reportsgrade/', course.courseId]);
+  }
+  showclass(course){
+    this._router.navigate(['dashboard/reportsclasses/', course.courseId]);
+  }
+  showsoldier(course){
+    this._router.navigate(['dashboard/soldier/', course.courseId]);
+  }
+  
 }

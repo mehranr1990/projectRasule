@@ -37,6 +37,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'reportsclasses/:courseId',
+    loadComponent: () =>
+      import('./pages/reports-classes/reports-classes.component').then(
+        ({ ReportsClassesComponent }) => ReportsClassesComponent
+      ),
+  },
+  {
     path: 'reportsgrade',
     loadComponent: () =>
       import('./pages/reports-grade/reports-grade.component').then(
@@ -44,7 +51,21 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'reportsgrade/:courseId',
+    loadComponent: () =>
+      import('./pages/reports-grade/reports-grade.component').then(
+        ({ ReportsGradeComponent }) => ReportsGradeComponent
+      ),
+  },
+  {
     path: 'reportsattendance',
+    loadComponent: () =>
+      import('./pages/reports-attendance/reports-attendance.component').then(
+        ({ ReportsAttendanceComponent }) => ReportsAttendanceComponent
+      ),
+  },
+  {
+    path: 'reportsattendance/:courseId',
     loadComponent: () =>
       import('./pages/reports-attendance/reports-attendance.component').then(
         ({ ReportsAttendanceComponent }) => ReportsAttendanceComponent

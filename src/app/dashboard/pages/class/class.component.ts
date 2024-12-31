@@ -21,6 +21,7 @@ import {
 import { SoldierService } from 'src/app/core/services/soldier.service';
 import { FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { FileUploadModule } from 'primeng/fileupload';
 @Component({
   selector: 'app-class',
   standalone: true,
@@ -35,6 +36,7 @@ import { DatePipe } from '@angular/common';
     ConfirmDialogModule,
     ToastModule,
     FormsModule,
+    FileUploadModule,
   ],
   templateUrl: './class.component.html',
   styleUrl: './class.component.scss',
@@ -97,12 +99,44 @@ export class ClassComponent implements OnInit {
       { field: 'teacher', header: 'teacher' }
   ];
   }
+  image: File;
+
+  headerUploadHandler(resp) {
+    console.log(resp.files[0]);
+    this.image = resp.files[0];
+  }
   getclasess() {
     this.classService.getAll(this.id).subscribe({
       next: (resp: any) => {
-        this.classes = resp;
+        for (let index = 0; index < resp.classes.length; index++) {
+          console.log(resp.classes[index].classType);
+          
+          switch (resp.classes[index].classType) {
+            
+            case 'theory':  
+            console.log('sadf');
+            
+            resp.classes[index].classType = 'تئوری'
+            console.log(resp);
+            
+            break;
+            case 'parctical':  
+            resp.classes[index].classType = 'عملی'
+            break;
+            case 'workshop':  
+            resp.classes[index].classType = 'کارگاه'
+              break;
+          
+            default:
+              break;
+          }
+          
+        }
 
-        console.log(this.classes);
+        
+        this.classes = resp.classes;
+
+        
       },
     });
   }
@@ -291,7 +325,6 @@ export class ClassComponent implements OnInit {
     },
   ];
   submitform1(form) {
-    console.log(form);
 
     const body = {
       enrollmentId: this.enrolments1._id,
@@ -299,7 +332,13 @@ export class ClassComponent implements OnInit {
       status: form.status,
       description: form.description,
     };
-    this.classService.attendances(body).subscribe({
+    const newForm = new FormData();
+    for (const property in body) {
+      newForm.append(property, form[property]);
+    }
+    newForm.append('photo', this.image);
+    console.log(newForm);
+    this.classService.attendances(newForm).subscribe({
       next: () => {
         this.messageService.add({
           severity: 'info',

@@ -13,9 +13,11 @@
     [globalFilterFields]="[
       'enrollment.soldier.firstName',
       'enrollment.soldier.lastName',
-      'score',
+      'passOrFail',
       'enrollment.soldier.personalNumber',
-      'enrollment.class.classType',
+      'enrollment.class.name',
+      'enrollment.class.course.title',
+      'score',
       'note',
     ]"
   >
@@ -41,6 +43,8 @@
         <th>نمره</th>
         <th>شماره پرسنلی</th>
         <th>نام کلاس</th>
+        <th>نام دوره</th>
+        <th>وضعیت</th>
         <th>توضیحات</th>
       </tr>
     </ng-template>
@@ -58,7 +62,13 @@
           <span class="p-column-title">شماره پرسنلی : </span>{{ post.enrollment.soldier.personalNumber }}
         </td>
         <td>
-          <span class="p-column-title">نام کلاس : </span>{{ post.enrollment.class.classType }}
+          <span class="p-column-title">نام کلاس : </span>{{ post.enrollment.class.name }}
+        </td>
+        <td>
+          <span class="p-column-title">نام دوره : </span>{{ post.enrollment.class.course.title }}
+        </td>
+        <td>
+          <span class="p-column-title">وضعیت : </span>{{ post.passOrFail   }}
         </td>
         <td class="justify-end">
           

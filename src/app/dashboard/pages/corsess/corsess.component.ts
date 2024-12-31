@@ -50,6 +50,7 @@ getActiveCourses(){
   this.coursesService.getAllActiveCourses().subscribe({
     next: (resp) => {
       this.categories = resp;
+      
     },
   });
 }

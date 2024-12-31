@@ -6,6 +6,11 @@ export const routes: Routes = [
       import('./soldier.component').then(({ SoldierComponent }) => SoldierComponent),
   },
   {
+    path: ':soldier',
+    loadComponent: () =>
+      import('./soldier.component').then(({ SoldierComponent }) => SoldierComponent),
+  },
+  {
     path: 'create',
     loadComponent: () =>
       import('./create/create.component').then(

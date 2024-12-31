@@ -5,6 +5,7 @@ import { CardModule } from 'primeng/card';
 import { ToastModule } from 'primeng/toast';
 import { ScrollerModule } from 'primeng/scroller';
 import { ReportsService } from 'src/app/core/services/reports.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-reports-grade',
@@ -21,13 +22,133 @@ export class ReportsGradeComponent {
     this.myDiv.filterGlobal(event.target.value, 'contains');
   }
   Grades: any = [];
-  constructor(private reportService: ReportsService) {}
+  constructor(private reportService: ReportsService,
+    private route: ActivatedRoute) {}
   cols!: any[];
-
+id:any
   ngOnInit() {
-    this.reportService.getAllGrades().subscribe({
+    
+    this.route.params.subscribe((params) => {
+      this.id = params['courseId'];
+    });
+    if(this.id){
+      this.reportService.getgradecourse(this.id).subscribe({
+        next: (resp) => {
+  
+          for (let index = 0; index < resp.length; index++) {
+         
+          
+            switch (resp[index].passOrFail) {
+              case 'none':
+                resp[index].passOrFail = 'نامشخص'
+                break;
+                case 'pass':
+                resp[index].passOrFail = 'قبول'
+                
+                break;
+                case 'fail':
+                resp[index].passOrFail = 'مردود'
+                
+                break;
+               
+            
+              default:
+                break;
+            }
+          }
+          if(resp.length==0){
+            this.loadfromclassId()
+          }
+          resp.filter(res=>{
+            if(res.enrollment){
+  
+              this.Grades.push(res);
+            }
+          })
+        },
+      });
+       this.cols = [
+        { field: 'enrollment.soldier.firstName', header: 'نام', },
+        { field: 'enrollment.soldier.lastName', header: 'نام خانوادگی'  },
+        { field: 'score', header: 'نمره' },
+        { field: 'enrollment.soldier.personalNumber', header: 'شماره پرسنلی' },
+        { field: 'enrollment.class.name', header: 'نام کلاس' },
+        { field: 'enrollment.class.course.title', header: 'نام دوره' },
+        { field: 'passOrFail', header: 'وضعیت' },
+        { field: 'note', header: 'توضیحات' },
+    ];
+    }else{
+      this.reportService.getgradecourse('').subscribe({
+        next: (resp) => {
+  
+          for (let index = 0; index < resp.length; index++) {
+         
+          
+            switch (resp[index].passOrFail) {
+              case 'none':
+                resp[index].passOrFail = 'نامشخص'
+                break;
+                case 'pass':
+                resp[index].passOrFail = 'قبول'
+                
+                break;
+                case 'fail':
+                resp[index].passOrFail = 'مردود'
+                
+                break;
+               
+            
+              default:
+                break;
+            }
+          }
+          
+          resp.filter(res=>{
+            if(res.enrollment){
+  
+              this.Grades.push(res);
+            }
+          })
+        },
+      });
+       this.cols = [
+        { field: 'enrollment.soldier.firstName', header: 'نام', },
+        { field: 'enrollment.soldier.lastName', header: 'نام خانوادگی'  },
+        { field: 'score', header: 'نمره' },
+        { field: 'enrollment.soldier.personalNumber', header: 'شماره پرسنلی' },
+        { field: 'enrollment.class.name', header: 'نام کلاس' },
+        { field: 'enrollment.class.course.title', header: 'نام دوره' },
+        { field: 'passOrFail', header: 'وضعیت' },
+        { field: 'note', header: 'توضیحات' },
+    ];
+    }
+    
+  }
+  loadfromclassId(){
+    this.reportService.getgradeclasses(this.id).subscribe({
       next: (resp) => {
-        console.log(resp);
+
+        for (let index = 0; index < resp.length; index++) {
+       
+        
+          switch (resp[index].passOrFail) {
+            case 'none':
+              resp[index].passOrFail = 'نامشخص'
+              break;
+              case 'pass':
+              resp[index].passOrFail = 'قبول'
+              
+              break;
+              case 'fail':
+              resp[index].passOrFail = 'مردود'
+              
+              break;
+             
+          
+            default:
+              break;
+          }
+        }
         
         resp.filter(res=>{
           if(res.enrollment){
@@ -38,12 +159,14 @@ export class ReportsGradeComponent {
       },
     });
      this.cols = [
-      { field: 'firstName', header: 'firstName', },
-      { field: 'lastName', header: 'lastName' },
-      { field: 'score', header: 'score' },
-      { field: 'personalNumber', header: 'personalNumber' },
-      { field: 'classType', header: 'classType' },
-      { field: 'note', header: 'note' },
+      { field: 'enrollment.soldier.firstName', header: 'نام', },
+      { field: 'enrollment.soldier.lastName', header: 'نام خانوادگی'  },
+      { field: 'score', header: 'نمره' },
+      { field: 'enrollment.soldier.personalNumber', header: 'شماره پرسنلی' },
+      { field: 'enrollment.class.name', header: 'نام کلاس' },
+      { field: 'enrollment.class.course.title', header: 'نام دوره' },
+      { field: 'passOrFail', header: 'وضعیت' },
+      { field: 'note', header: 'توضیحات' },
   ];
   }
 }

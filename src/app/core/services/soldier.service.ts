@@ -82,4 +82,26 @@ export class SoldierService {
     return this.api.post(`/grades`, body,{ headers }).pipe(tap((resp)=>{  
     }))
   }
+  getsoldercourses(id){
+    const token = localStorage.getItem('token')
+    console.log(token);
+    
+    const headers: HttpHeaders = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+    });
+    
+    return this.api.get(`/soldiers/bycourse/${id}`, { headers }).pipe(tap((resp)=>{  
+    }))
+  }
+  getsolderclasses(id){
+    const token = localStorage.getItem('token')
+    console.log(token);
+    
+    const headers: HttpHeaders = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+    });
+    
+    return this.api.get(`/soldiers/byclass/${id}`, { headers }).pipe(tap((resp)=>{  
+    }))
+  }
 }

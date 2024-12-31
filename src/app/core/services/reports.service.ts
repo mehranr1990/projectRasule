@@ -54,4 +54,55 @@ export class ReportsService {
       .get('/reports/attendance', { headers })
       .pipe(tap((resp) => {}));
   }
+  public getattendancecourse(id) {
+    const token = localStorage.getItem('token');
+    console.log(token);
+
+    const headers: HttpHeaders = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+    });
+
+    return this.api
+      .get(`/reports/attendance/filter?courseId=${id}`, { headers })
+      .pipe(tap((resp) => {}));
+  }
+  public getgradecourse(id) {
+    const token = localStorage.getItem('token');
+    const headers: HttpHeaders = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+    });
+    return this.api
+      .get(`/reports/grades/filter?courseId=${id}`, { headers })
+      .pipe(tap((resp) => {}));
+  }
+  public getclassecourse(id) {
+    const token = localStorage.getItem('token');
+    const headers: HttpHeaders = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+    });
+    return this.api
+      .get(`/reports/classes/filter?courseId=${id}`, { headers })
+      .pipe(tap((resp) => {}));
+  }
+  public getattendanceclasses(id) {
+    const token = localStorage.getItem('token');
+    console.log(token);
+
+    const headers: HttpHeaders = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+    });
+
+    return this.api
+      .get(`/reports/attendance/filter?classId=${id}`, { headers })
+      .pipe(tap((resp) => {}));
+  }
+  public getgradeclasses(id) {
+    const token = localStorage.getItem('token');
+    const headers: HttpHeaders = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+    });
+    return this.api
+      .get(`/reports/grades/filter?classId=${id}`, { headers })
+      .pipe(tap((resp) => {}));
+  }
 }

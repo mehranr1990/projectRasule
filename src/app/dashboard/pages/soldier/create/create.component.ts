@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ImageModule } from 'primeng/image';
 import { FormCreatorComponent } from 'src/app/components/shared/form-creator/form-creator.component';
@@ -17,6 +17,9 @@ import { UserStore } from 'src/app/core/stores/user.store';
 import { CardModule } from 'primeng/card';
 import { environment } from 'src/environments/environment';
 import { SoldierService } from 'src/app/core/services/soldier.service';
+import { DialogModule } from 'primeng/dialog';
+import { CommonModule } from '@angular/common';
+import { CameraService } from 'src/app/core/services/camera.service';
 
 @Component({
   selector: 'app-create',
@@ -29,6 +32,8 @@ import { SoldierService } from 'src/app/core/services/soldier.service';
     MultiSelectModule,
     FloatLabelModule,
     CardModule,
+    DialogModule,
+    CommonModule,
   ],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss',
@@ -51,34 +56,12 @@ export class CreateComponent implements OnInit {
     { label: 'همسر فوت شده', value: 'widowed', icon: '' },
   ];
   constructor(
-    private imageApi: ImageService,
+    private cameraService: CameraService,
     private categoryservice: CategoriesService,
     private soldierService: SoldierService,
     private userStore: UserStore
   ) {}
-  ngOnInit() {
-    this.categoryservice.getAll().subscribe({
-      next: (resp) => {
-        for (let index = 0; index < resp.length; index++) {
-          this.categories.push({
-            name: resp[index].title,
-            code: resp[index].title,
-          });
-          if (resp[index].categoryEntities.length > 0) {
-            for (
-              let index1 = 0;
-              index1 < resp[index].categoryEntities.length;
-              index1++
-            ) {
-              this.categories.push({
-                name: resp[index].categoryEntities[index1].title,
-                code: resp[index].categoryEntities[index1].title,
-              });
-            }
-          }
-        }
-      },
-    });
+  ngOnInit() {      this.startCamera();
   }
   resetUploadHeaderPic() {
     this.headerimageUploaded = false;
@@ -206,9 +189,16 @@ export class CreateComponent implements OnInit {
   submitForm(form) {
     console.log(form);
 
+    const newForm = new FormData();
+    for (const property in form) {
+      newForm.append(property, form[property]);
+    }
+    newForm.append('photo', this.image);
+    console.log(newForm);
+
     // form.headerImage = this.headerImgSrc;
     // form.categoriesName = this.selectedCategories.map((resp) => resp.name);
-    this.soldierService.create(form).subscribe({
+    this.soldierService.create(newForm).subscribe({
       next: (resp) => {
         this.resetUploadHeaderPic();
         this.selectedCategories = [];
@@ -216,17 +206,69 @@ export class CreateComponent implements OnInit {
       },
     });
   }
+
   public formValues: any;
 
+  image: File;
+
   headerUploadHandler(resp) {
-    const formData = new FormData();
-    formData.append('file', resp.files[0]);
-    this.imageApi.upload(formData).subscribe({
-      next: (resp) => {
-        this.headerimageUploaded = true;
-        this.headerImgSrc = resp.body;
-        this.headerImg = `${environment.apiUrl}/Image/Download/${resp.body}`;
-      },
-    });
+    console.log(resp.files[0]);
+    this.image = resp.files[0];
   }
+  visible: boolean = false;
+ 
+  showDialog() {
+    this.visible = !this.visible;
+  }
+  videoElement: HTMLVideoElement | undefined;
+  imageUrl: string = '';
+  async startCamera() {
+    this.videoElement = document.createElement('video');
+    this.videoElement.autoplay = true;
+    const stream = await this.cameraService.startCamera();
+    if (stream && this.videoElement) {
+      this.videoElement.srcObject = stream;
+    }
+  }
+  // توقف دوربین
+  stopCamera() {
+    this.cameraService.stopCamera();
+  }
+  // گرفتن عکس
+  capture() {
+    if (this.videoElement) {
+      this.imageUrl = this.cameraService.captureImage(this.videoElement);
+
+       const fileType = this.imageUrl.split(';')[0].split(':')[1];
+
+    // Remove the Base64 prefix "data:image/png;base64," if present
+    const base64Data = this.imageUrl.split(',')[1];
+
+    // Convert Base64 string to a binary Blob
+    const byteCharacters = atob(base64Data);
+    const byteArrays :any= [];
+
+    for (let offset = 0; offset < byteCharacters.length; offset += 1024) {
+      const slice = byteCharacters.slice(offset, offset + 1024);
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
+    }
+
+    const blob = new Blob(byteArrays, { type: 'image/jpeg' });
+    let file :any = new File([blob], `soldierpicture${blob.size}.png`,{ type: 'image/jpeg' });
+    console.log(file.type);
+    
+    this.image = file
+    console.log(file);
+    
+    // Create a download link for the user
+
+    // Clean up the URL object
+    }
+  }
+ 
 }

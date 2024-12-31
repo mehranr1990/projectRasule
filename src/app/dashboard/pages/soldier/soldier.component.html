@@ -4,22 +4,27 @@
   <p-table
     #dt1
     [value]="posts"
+    [responsive]="true"
     [paginator]="true"
+    [tableStyle]="{'min-width':'10rem'}"
     [rows]="10"
     [rowsPerPageOptions]="[10, 25, 100]"
     styleClass="tb-style"
     responsiveLayout="stack"
     [breakpoint]="'960px'"
-    scrollHeight="flex"
-    scrollable="true"
+    [scrollable]="true"
     [columns]="cols"
     [globalFilterFields]="[
       'firstName',
       'lastName',
       'personalNumber',
+      'birthDate',
+      'birthPlace',
+      'phoneNumber',
       'service'
     ]"
   >
+  
     <ng-template pTemplate="caption">
       <div class="flex items-center justify-between">
         <div class="text-end pb-4">
@@ -49,7 +54,11 @@
       <tr>
         <th style="min-width: 25%">نام و نام خانوادگی</th>
         <th style="min-width: 15%">شماره پرسنلی</th>
+        <th style="min-width: 25%">تاریخ تولد</th>
+        <th style="min-width: 25%">محل تولد</th>
+        <th style="min-width: 25%">شماره موبایل</th>
         <th style="min-width: 25%">محل خدمت</th>
+        <th style="min-width: 200px">تصویر</th>
         <th style="min-width: 200px">تغییرات</th>
       </tr>
     </ng-template>
@@ -64,7 +73,20 @@
           >{{ post.personalNumber }}
         </td>
         <td>
+          <span class="p-column-title">تاریخ تولد : </span
+          >{{ post.birthDate | date:'yyyy-MM-dd'}}
+        </td>
+        <td>
+          <span class="p-column-title">محل تولد : </span> {{ post.birthPlace }}
+        </td>
+        <td>
+          <span class="p-column-title">شماره موبایل : </span> {{ post.phoneNumber }}
+        </td>
+        <td>
           <span class="p-column-title">محل خدمت : </span> {{ post.service }}
+        </td>
+        <td>
+          <span class="p-column-title">تصویر : </span><div class="flex justify-center"><a [href]="baseURL + post.photoUrl" download="image.jpg"><img [src]="baseURL + post.photoUrl" alt="عکس سرباز" width="50" height="60"></a> </div>
         </td>
         <td class="justify-end">
           <p-button

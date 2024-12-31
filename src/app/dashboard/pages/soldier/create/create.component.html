@@ -10,7 +10,24 @@
     <div class="col-span-12 lg:col-span-4">
       <p-card styleClass="card-style rounded-xl bg-[--content-color] text-slate-100 border-dashed border-2 border-gray-600 shadow-none">
         <div class="flex-col">
-          @if (!headerimageUploaded) {
+        <div class="flex justify-around">
+          <p-fileUpload 
+          mode="basic" 
+          chooseLabel="انتخاب کردن" 
+          chooseIcon="pi pi-upload"
+          name="demo[]" 
+          url="https://www.primefaces.org/cdn/api/upload.php" 
+          accept="image/*" 
+          maxFileSize="1000000" 
+          (onUpload)="headerUploadHandler($event)" />
+
+
+
+          <p-button (onClick)="showDialog()"  label="گرفتن عکس" class="p-button-style"/>
+          
+        </div>
+
+          <!-- @if (!headerimageUploaded) {
           <p-card header="عکس " class="flex mb-4">
             <p-fileUpload
               chooseLabel="انتخاب"
@@ -34,7 +51,7 @@
               />
             </div>
           </p-card>
-          } 
+          }  -->
           <!-- @if (!bodyimageUploaded) {
           <p-card header="عکس اصلی" class="flex mb-4">
             <p-fileUpload
@@ -62,7 +79,7 @@
           </p-card>
           } -->
         </div>
-        <div class="my-10">
+        <!-- <div class="my-10">
           <p-floatLabel class="w-full">
             <p-multiSelect
               class="w-full"
@@ -73,7 +90,7 @@
             />
             <label for="float-label">انتخاب درجه</label>
           </p-floatLabel>
-        </div>
+        </div> -->
         <!-- <div>
           <p-floatLabel>
             <p-multiSelect
@@ -88,4 +105,11 @@
       </p-card>
     </div>
   </div>
-  
+  <p-dialog header="گرفتن عکس" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+    <div>
+      <video #videoElement width="100%" height="auto" playsinline></video>
+      <button (click)="capture()">Take Photo</button>
+      <img *ngIf="imageUrl" [src]="imageUrl" alt="Captured Image"/>
+    </div>
+    
+  </p-dialog>

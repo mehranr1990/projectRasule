@@ -9,13 +9,12 @@
     [rowsPerPageOptions]="[10, 25, 100]"
     styleClass="tb-style"
     responsiveLayout="stack"
-    
     [columns]="cols"
     [globalFilterFields]="[
-      'title',
+      'name',
       'startDate',
       'endDate',
-      'description'
+      'teacher'
     ]"
   >
     <ng-template pTemplate="caption">
@@ -36,17 +35,17 @@
     </ng-template>
     <ng-template pTemplate="header">
       <tr>
-        <th>عنوان دوره</th>
-        <th>تاریخ شروع دوره</th>
-        <th>تاریخ پایان دوره</th>
-        <th>توضیحات</th>
+        <th>عنوان کلاس</th>
+        <th>تاریخ شروع کلاس</th>
+        <th>تاریخ پایان کلاس</th>
+        <th>اموزگار کلاس</th><th>گزارشات</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-post>
       <tr>
         <td>
           <span class="p-column-title">نام و نام خانوادگی : </span
-          >{{ post.title }}
+          >{{ post.name }}
         </td>
         <td>
           <span class="p-column-title">شماره پرسنلی : </span
@@ -57,7 +56,34 @@
         </td>
         <td class="justify-end">
           
-          <span class="p-column-title">محل خدمت : </span>{{ post.description }}
+          <span class="p-column-title">محل خدمت : </span>{{ post.teacher }}
+        </td>
+        <td>
+         
+          <p-button
+          styleClass="bg-green-500/25 w-10 h-10 hover:bg-green-500/75 mx-2"
+          icon="pi pi-check"
+          severity="primary"
+          [rounded]="true"
+          [outlined]="true"
+          (onClick)="showatt(post)"
+        />
+          <p-button
+          styleClass="bg-green-500/25 w-10 h-10 hover:bg-green-500/75 mx-2"
+          icon="pi pi-book"
+          severity="primary"
+          [rounded]="true"
+          [outlined]="true"
+          (onClick)="showgrade(post)"
+        />
+        <p-button
+        styleClass="bg-green-500/25 w-10 h-10 hover:bg-green-500/75 mx-2"
+        icon="pi pi-user"
+        severity="primary"
+        [rounded]="true"
+        [outlined]="true"
+        (onClick)="showsoldier(post)"
+      />
         </td>
       </tr>
     </ng-template>
