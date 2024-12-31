@@ -46,6 +46,7 @@ responsiveLayout="stack"
     <th>وضعیت</th>
     <th>تصویر</th>
     <th>توضیحات</th>
+    <th>تغییرات</th>
   </tr>
 </ng-template>
 <ng-template pTemplate="body" let-post>
@@ -74,7 +75,55 @@ responsiveLayout="stack"
       
       <span class="p-column-title">توضیحات : </span>{{ post.description }}
     </td>
+    <td class="justify-end">
+      <p-button
+      styleClass="bg-sky-500/25 w-10 h-10 hover:bg-sky-500/75"
+      size="small"
+      icon="pi pi-pencil"
+      [rounded]="true"
+      [outlined]="true"
+      severity="success"
+      (onClick)="editatt(post)"
+    />
+      <p-button
+
+      styleClass="bg-rose-500/25 w-10 h-10 hover:bg-rose-500/75 mx-3"
+      size="small"
+      icon="pi pi-trash"
+      [rounded]="true"
+      [outlined]="true"
+      severity="success"
+      (onClick)="deleteatt(post)"
+    />
+    </td>
   </tr>
 </ng-template>
 </p-table>
 </p-card>
+<p-dialog
+  header="وضعیت حضور و غیاب سرباز"
+  [modal]="true"
+  [(visible)]="visibleform"
+  [style]="{ width: '55rem' }"
+>
+  <div class="flex justify-center mt-3">
+    <p-fileUpload
+      mode="basic"
+      auto="true"
+      chooseLabel="انتخاب کردن"
+      chooseIcon="pi pi-upload"
+      name="demo[]"
+      url="https://www.primefaces.org/cdn/api/upload.php"
+      accept="image/*"
+      maxFileSize="1000000"
+      (onUpload)="headerUploadHandler($event)"
+    />
+  </div>
+  @if(visibleform){
+
+  <form-creator [fields]="formFeilds1" (submitForm)="submitform1($event)" />
+  }
+</p-dialog>
+
+<p-toast />
+<p-confirmDialog class="style-confirm" />

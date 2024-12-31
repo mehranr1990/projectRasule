@@ -43,6 +43,8 @@ export class ReportsCoursesComponent {
   visible:boolean = false
   ngOnInit() {
     this.reportService.getAllCourses().subscribe({next:(resp)=>{
+      console.log(resp);
+      
       this.courses = resp
        this.cols = [
       { field: 'title', header: 'title', },

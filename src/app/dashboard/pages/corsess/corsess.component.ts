@@ -26,47 +26,46 @@ import { DatePipe } from '@angular/common';
     ToastModule,
   ],
   templateUrl: './corsess.component.html',
-  styleUrl: './corsess.component.scss',providers: [ConfirmationService, MessageService],
+  styleUrl: './corsess.component.scss',
+  providers: [ConfirmationService, MessageService],
 })
 export class CorsessComponent implements OnInit {
   constructor(
     private coursesService: CoursesService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private _router: Router,
+    private _router: Router
   ) {}
   categories: any = [];
-  
+
   cols!: any[];
   ngOnInit() {
-   this.getActiveCourses()
-   this.cols = [
-    { field: 'title', header: 'title', },
-    { field: 'startDate', header: 'startDate' },
-    { field: 'endDate', header: 'endDate' },
-];
+    this.getActiveCourses();
+    this.cols = [
+      { field: 'title', header: 'title' },
+      { field: 'startDate', header: 'startDate' },
+      { field: 'endDate', header: 'endDate' },
+    ];
   }
-getActiveCourses(){
-  this.coursesService.getAllActiveCourses().subscribe({
-    next: (resp) => {
-      this.categories = resp;
-      
-    },
-  });
-}
+  getActiveCourses() {
+    this.coursesService.getAllActiveCourses().subscribe({
+      next: (resp) => {
+        this.categories = resp;
+      },
+    });
+  }
 
-@ViewChild('dt1') myDiv: any;
-filtermethod2(event) {
-  console.log(event.target.value);
-  
-  this.myDiv.filterGlobal(event.target.value, 'contains')
-}
+  @ViewChild('dt1') myDiv: any;
+  filtermethod2(event) {
+    console.log(event.target.value);
+
+    this.myDiv.filterGlobal(event.target.value, 'contains');
+  }
   ViewCategory(Category) {
     this._router.navigate(['dashboard/class/', Category._id]);
-
   }
-  archiveCourses(Category){
-      this.confirmationService.confirm({
+  archiveCourses(Category) {
+    this.confirmationService.confirm({
       message: 'آیا از ارشیو کردن این آیتم مطمئن هستید؟',
       header: 'اخطار',
       icon: 'fa-regular fa-circle-exclamation text-amber-500',
@@ -79,8 +78,7 @@ filtermethod2(event) {
       accept: () => {
         this.coursesService.archiveCourse(Category._id).subscribe({
           next: (resp) => {
-
-            this.getActiveCourses() 
+            this.getActiveCourses();
             this.messageService.add({
               severity: 'info',
               summary: 'ایتم با موفقیت ارشیو گردید',
@@ -99,7 +97,6 @@ filtermethod2(event) {
         // });
       },
     });
-   
   }
   return() {
     this.coursesService.getAllCourses().subscribe({

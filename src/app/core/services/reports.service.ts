@@ -17,7 +17,7 @@ export class ReportsService {
     });
 
     return this.api
-      .get('/reports/courses', { headers })
+      .get('/courses/all', { headers })
       .pipe(tap((resp) => {}));
   }
   public getAllClasses() {
@@ -105,4 +105,22 @@ export class ReportsService {
       .get(`/reports/grades/filter?classId=${id}`, { headers })
       .pipe(tap((resp) => {}));
   }
+    changeatt(id,payload){
+      const token = localStorage.getItem('token');
+      const headers: HttpHeaders = new HttpHeaders({
+        Authorization: 'Bearer ' + token,
+      });
+      return this.api
+        .put(`/attendances/${id}`,payload, { headers })
+        .pipe(tap((resp) => {}));
+    }
+    deleteatt(id){
+      const token = localStorage.getItem('token');
+      const headers: HttpHeaders = new HttpHeaders({
+        Authorization: 'Bearer ' + token,
+      });
+      return this.api
+        .delete(`/attendances/${id}`, { headers })
+        .pipe(tap((resp) => {}));
+    }
 }
