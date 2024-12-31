@@ -13,6 +13,7 @@
         <div class="flex justify-around">
           <p-fileUpload 
           mode="basic" 
+          auto="true" 
           chooseLabel="انتخاب کردن" 
           chooseIcon="pi pi-upload"
           name="demo[]" 
@@ -108,7 +109,7 @@
   <p-dialog header="گرفتن عکس" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
     <div>
       <video #videoElement width="100%" height="auto" playsinline></video>
-      <button (click)="capture()">Take Photo</button>
+      <button (click)="capture()">گرفتن عکس</button>
       <img *ngIf="imageUrl" [src]="imageUrl" alt="Captured Image"/>
     </div>
     

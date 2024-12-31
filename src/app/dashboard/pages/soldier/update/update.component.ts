@@ -221,22 +221,27 @@ export class UpdateComponent implements OnInit {
     },
   ];
   submitForm(form) {
-    this.soldierService.update(this.id, form).subscribe({
+    console.log(form);
+
+    const newForm = new FormData();
+    for (const property in form) {
+      newForm.append(property, form[property]);
+    }
+    newForm.append('photo', this.image);
+    console.log(newForm);
+    this.soldierService.update(this.id, newForm).subscribe({
       next: () => {
         this.router.navigate(['/dashboard/posts']);
       },
     });
 
+
   }
+  image: File;
+
   headerUploadHandler(resp) {
-    const formData = new FormData();
-    formData.append('file', resp.files[0]);
-    this.imageApi.upload(formData).subscribe({
-      next: (resp) => {
-        this.headerimageUploaded = true;
-        this.headerImgSrc = resp.body;
-        this.headerImg = `${environment.apiUrl}/Image/Download/${resp.body}`;
-      },
-    });
+    console.log(resp.files[0]);
+    this.image = resp.files[0];
   }
+ 
 }

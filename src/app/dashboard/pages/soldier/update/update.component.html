@@ -14,38 +14,18 @@
     <div class="col-span-12 lg:col-span-4">
       <p-card styleClass="card-style rounded-xl bg-[--content-color] text-slate-100 border-dashed border-2 border-gray-600 shadow-none">
         <div class="flex-col">
-          @if (!headerimageUploaded) {
-          <p-card header="عکس " class="flex mb-4">
-            <p-fileUpload
-              chooseLabel="انتخاب"
-              chooseIcon="pi pi-upload"
-              uploadLabel="بارگذاری"
-              cancelLabel="لغو"
-              customUpload="true"
-              accept="image/*"
-              (uploadHandler)="headerUploadHandler($event)"
-            />
-          </p-card>
-          }@else {<p-card header="عکس " class="flex mb-4">
-            <div class="flex-col justify-center">
-              <div class="mb-2">
-                <p-image
-                  [src]="headerImg"
-                  alt="Image"
-                  width="100%"
-                  [imageClass]="'rounded'"
-                />
-              </div>
-              <div>
-              <p-button
-                class="justify-center flex p-button-style w-full"
-                label="بازنشانی"
-                (onClick)="resetUploadHeaderPic()"
-              />
-            </div>
-            </div>
-          </p-card>
-          } 
+          <p-fileUpload 
+          mode="basic" 
+  auto="true" 
+          chooseLabel="انتخاب کردن" 
+          chooseIcon="pi pi-upload"
+          name="demo[]" 
+          url="https://www.primefaces.org/cdn/api/upload.php" 
+          accept="image/*" 
+          maxFileSize="1000000" 
+          (onUpload)="headerUploadHandler($event)" />
+
+
           <!-- @if (!bodyimageUploaded) {
           <p-card header="عکس اصلی" class="flex mb-4">
             <p-fileUpload
