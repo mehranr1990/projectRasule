@@ -27,88 +27,17 @@
           <p-button (onClick)="showDialog()"  label="گرفتن عکس" class="p-button-style"/>
           
         </div>
-
-          <!-- @if (!headerimageUploaded) {
-          <p-card header="عکس " class="flex mb-4">
-            <p-fileUpload
-              chooseLabel="انتخاب"
-              chooseIcon="pi pi-upload"
-              uploadLabel="بارگذاری"
-              cancelLabel="لغو"
-              customUpload="true"
-              accept="image/*"
-              (uploadHandler)="headerUploadHandler($event)"
-            />
-          </p-card>
-          }@else {<p-card header="عکس " class="flex mb-4">
-            <div class="flex-col justify-center">
-              <div class="">
-                <p-image [src]="headerImg" alt="Image" width="100%" />
-              </div>
-              <p-button
-                class="justify-center flex p-button-style"
-                label="بازنشانی"
-                (onClick)="resetUploadHeaderPic()"
-              />
-            </div>
-          </p-card>
-          }  -->
-          <!-- @if (!bodyimageUploaded) {
-          <p-card header="عکس اصلی" class="flex mb-4">
-            <p-fileUpload
-              customUpload="true"
-              chooseLabel="انتخاب"
-              chooseIcon="pi pi-upload"
-              uploadLabel="بارگذاری"
-              cancelLabel="لغو"
-              accept="image/*"
-              (uploadHandler)="bodyUploadHandler($event)"
-            />
-          </p-card>
-          }@else {
-          <p-card header="عکس اصلی" class="flex mb-4">
-            <div class="flex-col justify-center">
-              <div class="">
-                <p-image [src]="bodyImg" alt="Image" width="100%"  />
-              </div>
-              <p-button
-                class="justify-center flex p-button-style"
-                label="بازنشانی"
-                (onClick)="resetUploadBodyPic()"
-              />
-            </div>
-          </p-card>
-          } -->
         </div>
-        <!-- <div class="my-10">
-          <p-floatLabel class="w-full">
-            <p-multiSelect
-              class="w-full"
-              inputId="float-label"
-              [options]="categories"
-              [(ngModel)]="selectedCategories"
-              optionLabel="name"
-            />
-            <label for="float-label">انتخاب درجه</label>
-          </p-floatLabel>
-        </div> -->
-        <!-- <div>
-          <p-floatLabel>
-            <p-multiSelect
-              inputId="float-label"
-              [options]="tags"
-              [(ngModel)]="selectedTags"
-              optionLabel="name"
-            />
-            <label for="float-label">انتخاب تگ</label>
-          </p-floatLabel>
-        </div> -->
       </p-card>
     </div>
   </div>
   <p-dialog header="گرفتن عکس" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
     <div>
-      <video #videoElement width="100%" height="auto" playsinline></video>
+      <video #videoElement width="100%" height="0px" playsinline ></video>
+      <video #video width="100%" height="auto" autoplay ></video>
+
+  <canvas #canvasElement width="100%" height="auto" ></canvas>
+
       <button (click)="capture()">گرفتن عکس</button>
       <img *ngIf="imageUrl" [src]="imageUrl" alt="Captured Image"/>
     </div>

@@ -5,11 +5,7 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./soldier.component').then(({ SoldierComponent }) => SoldierComponent),
   },
-  {
-    path: ':soldier',
-    loadComponent: () =>
-      import('./soldier.component').then(({ SoldierComponent }) => SoldierComponent),
-  },
+  
   {
     path: 'create',
     loadComponent: () =>
@@ -23,6 +19,11 @@ export const routes: Routes = [
       import('./update/update.component').then(
         ({ UpdateComponent }) => UpdateComponent
       ),
+  },
+  {
+    path: ':soldier',
+    loadComponent: () =>
+      import('./soldier.component').then(({ SoldierComponent }) => SoldierComponent),
   },
 ];
 

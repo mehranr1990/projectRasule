@@ -47,10 +47,10 @@ export class ReportsCoursesComponent {
       
       this.courses = resp
        this.cols = [
-      { field: 'title', header: 'title', },
-      { field: 'startDate', header: 'startDate' },
-      { field: 'endDate', header: 'endDate' },
-      { field: 'description', header: 'description' },
+      { field: 'title', header: 'عنوان دوره', },
+      { field: 'startDate', header: 'تاریخ شروع دوره' },
+      { field: 'endDate', header: 'تاریخ پایان دوره' },
+      { field: 'description', header: 'توضیحات' },
   ];
     }}) 
   }

@@ -15,12 +15,10 @@
     styleClass="tb-style"
     [columns]="cols"
     [globalFilterFields]="[
-      'title',
-      'startDate',
-      'endDate',
+      'name',
+      'teacher',
       'classType',
       'capacity',
-      'teacher'
     ]"
   >
     <ng-template pTemplate="caption">
@@ -48,7 +46,7 @@
     <ng-template pTemplate="header">
       <tr>
         <th>کلاس</th>
-        <th pSortableColumn="name">نام مدرس کلاس</th>
+        <th >نام مدرس کلاس</th>
         <th>نوع کلاس</th>
         <th>ظرفیت کلاس</th>
         <th>تغییرات</th>

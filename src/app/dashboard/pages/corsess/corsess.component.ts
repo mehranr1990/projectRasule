@@ -42,9 +42,9 @@ export class CorsessComponent implements OnInit {
   ngOnInit() {
     this.getActiveCourses();
     this.cols = [
-      { field: 'title', header: 'title' },
-      { field: 'startDate', header: 'startDate' },
-      { field: 'endDate', header: 'endDate' },
+      { field: 'title', header: 'نام دوره' },
+      { field: 'startDate', header: 'تاریخ شروع دوره' },
+      { field: 'endDate', header: 'تاریخ پایان دوره' },
     ];
   }
   getActiveCourses() {

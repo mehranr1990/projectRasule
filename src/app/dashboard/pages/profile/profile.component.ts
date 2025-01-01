@@ -59,9 +59,9 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.getusers();
     this.cols = [
-      { field: 'username', header: 'username', },
-      { field: 'role', header: 'role' },
-      { field: 'isActive', header: 'isActive' },
+      { field: 'username', header: 'نام کاربری', },
+      { field: 'role', header: 'نقش کاربر' },
+      { field: 'isActive', header: 'فعال یا غیر فعال' },
   ];
   }
   getusers() {

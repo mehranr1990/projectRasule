@@ -101,11 +101,13 @@ export class ReportsAttendanceComponent {
         },
       });
       this.cols = [
-        { field: 'firstName', header: 'firstName' },
-        { field: 'lastName', header: 'lastName' },
-        { field: 'personalNumber', header: 'personalNumber' },
-        { field: 'classType', header: 'classType' },
-        { field: 'description', header: 'description' },
+        { field: 'enrollment.soldier.firstName', header: 'نام' },
+        { field: 'enrollment.soldier.lastName', header: 'نام خانوادگی' },
+        { field: 'enrollment.soldier.personalNumber', header: 'شماره پرسنلی' },
+        { field: 'enrollment.class.name', header: 'نام کلاس' },
+        { field: 'enrollment.class.course.title', header: 'نام دوره' },
+        { field: 'status', header: 'وضعیت' },
+        { field: 'description', header: 'توضیحات' },
       ];
     } else {
       this.reportService.getattendancecourse('').subscribe({
@@ -139,11 +141,13 @@ export class ReportsAttendanceComponent {
           this.attendance = resp;
           console.log(resp);
           this.cols = [
-            { field: 'firstName', header: 'firstName' },
-            { field: 'lastName', header: 'lastName' },
-            { field: 'personalNumber', header: 'personalNumber' },
-            { field: 'classType', header: 'classType' },
-            { field: 'description', header: 'description' },
+            { field: 'enrollment.soldier.firstName', header: 'نام' },
+        { field: 'enrollment.soldier.lastName', header: 'نام خانوادگی' },
+        { field: 'enrollment.soldier.personalNumber', header: 'شماره پرسنلی' },
+        { field: 'enrollment.class.name', header: 'نام کلاس' },
+        { field: 'enrollment.class.course.title', header: 'نام دوره' },
+        { field: 'status', header: 'وضعیت' },
+        { field: 'description', header: 'توضیحات' },
           ];
         },
       });
@@ -186,11 +190,13 @@ export class ReportsAttendanceComponent {
         },
       });
       this.cols = [
-        { field: 'firstName', header: 'firstName' },
-        { field: 'lastName', header: 'lastName' },
-        { field: 'personalNumber', header: 'personalNumber' },
-        { field: 'classType', header: 'classType' },
-        { field: 'description', header: 'description' },
+        { field: 'enrollment.soldier.firstName', header: 'نام' },
+        { field: 'enrollment.soldier.lastName', header: 'نام خانوادگی' },
+        { field: 'enrollment.soldier.personalNumber', header: 'شماره پرسنلی' },
+        { field: 'enrollment.class.name', header: 'نام کلاس' },
+        { field: 'enrollment.class.course.title', header: 'نام دوره' },
+        { field: 'status', header: 'وضعیت' },
+        { field: 'description', header: 'توضیحات' },
       ];
     }
   }

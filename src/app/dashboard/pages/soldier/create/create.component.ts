@@ -220,15 +220,44 @@ export class CreateComponent implements OnInit {
   showDialog() {
     this.visible = !this.visible;
   }
+  @ViewChild('video') video: ElementRef<HTMLVideoElement>;
+  @ViewChild('canvasElement') canvasElement: ElementRef<HTMLCanvasElement>;
+  private stream1: MediaStream;
   videoElement: HTMLVideoElement | undefined;
   imageUrl: string = '';
   async startCamera() {
+    this.starCamera()
     this.videoElement = document.createElement('video');
     this.videoElement.autoplay = true;
     const stream = await this.cameraService.startCamera();
+    
     if (stream && this.videoElement) {
       this.videoElement.srcObject = stream;
     }
+  }
+  async starCamera(): Promise<void> {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      this.stream1 = stream;
+      this.video.nativeElement.srcObject = stream;
+      this.drawToCanvas();
+    } catch (error) {
+      console.error('خطا در دسترسی به دوربین: ', error);
+    }
+  }
+  drawToCanvas(): void {
+    const video = this.video.nativeElement;
+    const canvas = this.canvasElement.nativeElement;
+    const ctx = canvas.getContext('2d');
+    
+    // رسم فریم به فریم ویدیو روی کانواس
+    const drawFrame = () => {
+      if (video.paused || video.ended) return;
+      ctx?.drawImage(video, 0, 0, canvas.width, canvas.height);
+      requestAnimationFrame(drawFrame);
+    };
+
+    drawFrame(); // شروع رسم فریم‌ها روی کانواس
   }
   // توقف دوربین
   stopCamera() {

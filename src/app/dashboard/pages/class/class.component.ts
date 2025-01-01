@@ -91,12 +91,10 @@ export class ClassComponent implements OnInit {
     });
     this.getclasess();
     this.cols = [
-      { field: 'title', header: 'title', },
-      { field: 'startDate', header: 'startDate' },
-      { field: 'endDate', header: 'endDate' },
-      { field: 'classType', header: 'classType' },
-      { field: 'capacity', header: 'capacity' },
-      { field: 'teacher', header: 'teacher' }
+      { field: 'name', header: 'عنوان کلاس', },
+      { field: 'classType', header: 'نوع کلاس' },
+      { field: 'capacity', header: 'ظرفیت' },
+      { field: 'teacher', header: 'آموزگار' }
   ];
   }
   image: File;
